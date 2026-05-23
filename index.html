@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="eu">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CEIP Mendia HLHI - Jantokia / Comedor</title>
+    <meta name="description" content="CEIP Mendia HLHI eskola jantokiaren webgunea - Portal del comedor escolar">
+    
+    <!-- Google Fonts: Outfit & Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons (CDN) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body class="lang-eu">
+    
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <img src="imagenes/logo_mendia.png" alt="Logo CEIP Mendia HLHI" class="logo-img">
+                <div class="logo-text">
+                    <span class="school-name">CEIP MENDIA HLHI</span>
+                    <span class="site-title">
+                        <span class="eu">Eskola-jantokia</span>
+                        <span class="es">Comedor Escolar</span>
+                    </span>
+                </div>
+            </a>
+            
+            <ul class="nav-links" id="navLinks">
+                <li><a href="#hasiera" class="nav-item active">
+                    <span class="eu">Ongi Etorri</span><span class="es">Bienvenido</span>
+                </a></li>
+                <li><a href="#noticias" class="nav-item">
+                    <span class="eu">Berriak</span><span class="es">Noticias</span>
+                </a></li>
+                <li><a href="#menuak" class="nav-item">
+                    <span class="eu">Menua</span><span class="es">Menú</span>
+                </a></li>
+                <li><a href="#antolakuntza" class="nav-item">
+                    <span class="eu">Antolakuntza</span><span class="es">Organización</span>
+                </a></li>
+                <li><a href="#dokumentazioa" class="nav-item">
+                    <span class="eu">Dokumentuak</span><span class="es">Documentos</span>
+                </a></li>
+                <li><a href="#galeria" class="nav-item">
+                    <span class="eu">Galeria</span><span class="es">Galería</span>
+                </a></li>
+            </ul>
+            
+            <div class="nav-actions">
+                <!-- Language Switcher -->
+                <button id="langToggle" class="btn-lang" aria-label="Aldatu hizkuntza / Cambiar idioma">
+                    <span class="lang-indicator">EU</span>
+                </button>
+                
+                <!-- Dark Mode Toggle -->
+                <button id="themeToggle" class="btn-theme" aria-label="Aldatu itxura / Cambiar tema">
+                    <i data-lucide="moon" class="theme-icon-dark"></i>
+                    <i data-lucide="sun" class="theme-icon-light"></i>
+                </button>
+                
+                <!-- Mobile Menu Button -->
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Menua ireki / Abrir menú">
+                    <i data-lucide="menu"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="hero" id="hasiera">
+        <div class="hero-overlay"></div>
+        <div class="container hero-wrapper">
+            <div class="hero-text-side">
+                <span class="badge">
+                    <span class="eu">Familientzako Ataria</span>
+                    <span class="es">Portal para Familias</span>
+                </span>
+                <h1 class="hero-title" id="heroTitle">
+                    <span class="eu">Gure jantokia, <br><span class="highlight">elkarbizitza eta osasuna</span></span>
+                    <span class="es">Nuestro comedor, <br><span class="highlight">convivencia y salud</span></span>
+                </h1>
+                <p class="hero-desc" id="heroDesc">
+                    <span class="eu">CEIP Mendia HLHI-ko jantoki zerbitzuaren informazio eta kudeaketa gunea. Gure helburua ikasleei elikadura osasuntsua eta hezkuntza-ingurune segurua eskaintzea da.</span>
+                    <span class="es">Espacio de información del servicio de comedor de CEIP Mendia HLHI. Nuestro objetivo es ofrecer a los alumnos una alimentación saludable y un entorno educativo seguro.</span>
+                </p>
+
+            </div>
+            <div class="hero-image-side">
+                <div class="hero-image-container">
+                    <img src="imagenes/goiburua_jantoki_ona.png" alt="Comedor Mendia HLHI" class="hero-img-main">
+                </div>
+            </div>
+        </div>
+    </header>
+
+
+    <!-- News and Board Section -->
+    <section class="section" id="noticias">
+        <div class="container">
+            <div class="section-header">
+                <h2>
+                    <span class="eu">Azken <span class="highlight">Berriak</span></span>
+                    <span class="es">Últimas <span class="highlight">Noticias</span></span>
+                </h2>
+                <p>
+                    <span class="eu">Jantoki zerbitzuari buruzko oharrak eta berri garrantzitsuak familientzat.</span>
+                    <span class="es">Avisos y noticias importantes para las familias sobre el servicio de comedor.</span>
+                </p>
+            </div>
+
+            <!-- News Grid loaded dynamically from data.json -->
+            <div class="news-grid" id="newsGrid">
+                <!-- Fallback Static News if JS is disabled -->
+                <article class="news-card">
+                    <div class="news-content">
+                        <span class="news-date">2026/05/23</span>
+                        <h3>
+                            <span class="eu">Gurasoentzako bilera ekainaren 22an</span>
+                            <span class="es">Reunión de familias el 22 de junio</span>
+                        </h3>
+                        <p>
+                            <span class="eu">Datorren ikasturterako 2 urteko comensalen gurasoentzako informazio bilera ospatuko dugu eskolako liburutegian 17:00etan.</span>
+                            <span class="es">Celebraremos una reunión informativa para las familias de los comensales de 2 años en la biblioteca de la escuela a las 17:00h.</span>
+                        </p>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menus and Nutrition Section -->
+    <section class="section special-section" id="menuak">
+        <div class="container">
+            <div class="menu-container-box">
+                <div class="menu-info-side">
+                    <span class="badge-accent">Ausolan</span>
+                    <h2>
+                        <span class="eu">Eskola <span class="highlight">Menuak</span></span>
+                        <span class="es">Menús <span class="highlight">Escolares</span></span>
+                    </h2>
+                    <p>
+                        <span class="eu">Hilabeteko menua eta dieta bereziak eskuragarri daude. Ausolan Menuo aplikazioaren bidez eguneroko menua kontsulta dezakezu gure ikastetxeko kodea erabiliz.</span>
+                        <span class="es">El menú mensual y las dietas especiales están disponibles para su consulta. Puedes ver el menú diario en la app Ausolan Menuo utilizando nuestro código de centro.</span>
+                    </p>
+                    <div class="center-code-box">
+                        <span class="code-label"><span class="eu">Ikastetxe Kodea</span><span class="es">Código del Centro</span></span>
+                        <span class="code-value">ef12f8c02c7e45869130b2830157a241</span>
+                    </div>
+                    <div class="button-group">
+                        <a href="https://menuo.ausolan.com/" target="_blank" class="btn-primary">
+                            <span class="eu">Ausolan Menuo Ireki</span><span class="es">Abrir Ausolan Menuo</span>
+                            <i data-lucide="external-link"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="menu-download-side">
+                    <h3>
+                        <span class="eu">Hilabeteko Menuak</span><span class="es">Menús del Mes</span>
+                    </h3>
+                    <p class="text-secondary">
+                        <span class="eu">Klikatu azken menuak deskargatzeko:</span>
+                        <span class="es">Haz clic para descargar los últimos menús:</span>
+                    </p>
+                    <div class="menu-downloads-list" id="menuDownloadsList">
+                        <!-- Carga dinámica o estática de PDF de menús -->
+                        <a href="#" class="menu-download-item">
+                            <div class="item-icon"><i data-lucide="file-text"></i></div>
+                            <div class="item-details">
+                                <span class="item-name"><span class="eu">Ekaineko Menu Basala</span><span class="es">Menú Basal de Junio</span></span>
+                                <span class="item-meta">PDF • 1.2 MB</span>
+                            </div>
+                            <div class="item-action"><i data-lucide="download"></i></div>
+                        </a>
+                        <a href="#" class="menu-download-item">
+                            <div class="item-icon"><i data-lucide="file-text"></i></div>
+                            <div class="item-details">
+                                <span class="item-name"><span class="eu">Dieta Bereziak - Ekaina</span><span class="es">Dietas Especiales - Junio</span></span>
+                                <span class="item-meta">PDF • 800 KB</span>
+                            </div>
+                            <div class="item-action"><i data-lucide="download"></i></div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Organization Section -->
+    <section class="section" id="antolakuntza">
+        <div class="container">
+            <div class="section-header">
+                <h2>
+                    <span class="eu">Jantokiaren <span class="highlight">Funtzionamendua</span></span>
+                    <span class="es">Funcionamiento del <span class="highlight">Comedor</span></span>
+                </h2>
+                <p>
+                    <span class="eu">Ordutegiak, txandak eta elkarbizitzarako arau orokorrak.</span>
+                    <span class="es">Horarios, turnos y normas generales de convivencia del comedor.</span>
+                </p>
+            </div>
+
+            <div class="grid-3">
+                <div class="card status-card">
+                    <div class="card-icon-round"><i data-lucide="clock"></i></div>
+                    <h3><span class="eu">Ordutegiak eta Txandak</span><span class="es">Horarios y Turnos</span></h3>
+                    <div id="orgSchedule" class="org-list-container">
+                        <ul class="list-unstyled">
+                            <li><strong><span class="eu">Astelehen, Astearte, Ostegun eta Ostiraletan:</span><span class="es">Lunes, Martes, Jueves y Viernes:</span></strong></li>
+                            <li>• 1. Txanda (13:15): HH2, HH3, HH4, HH5, LH1, LH2</li>
+                            <li>• 2. Txanda (14:15): LH3, LH4, LH5, LH6</li>
+                            <li style="margin-top: 8px;"><strong><span class="eu">Asteazkenetan (Irteera 15:00etan):</span><span class="es">Miércoles (Salida a las 15:00h):</span></strong></li>
+                            <li>• 1. Txanda (13:30): HH eta LH1, LH2, LH5</li>
+                            <li>• 2. Txanda (14:15): LH3, LH4, LH6</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="card status-card">
+                    <div class="card-icon-round"><i data-lucide="shield-check"></i></div>
+                    <h3><span class="eu">Segurtasuna eta Higienea</span><span class="es">Seguridad e Higiene</span></h3>
+                    <p>
+                        <span class="eu">Segurtasun handiena bermatzeko, sukaldean higiene- eta tenperatura-kontrol zorrotzak egiten ditugu APPCC sistemaren bidez. Ausolanek egunero bermatzen ditu kalitate estandarrik altuenak.</span>
+                        <span class="es">Para garantizar la máxima seguridad, realizamos estrictos controles de higiene y temperatura en cocina mediante el sistema APPCC. Ausolan asegura diariamente los más altos estándares de calidad.</span>
+                    </p>
+                </div>
+
+                <div class="card status-card">
+                    <div class="card-icon-round"><i data-lucide="users"></i></div>
+                    <h3><span class="eu">Gure Taldea</span><span class="es">Nuestro Equipo</span></h3>
+                    <div id="orgTeam" class="org-list-container">
+                        <ul class="list-unstyled">
+                            <li><strong><span class="eu">Arduraduna:</span><span class="es">Responsable:</span></strong> Asier Ruiz</li>
+                            <li><strong><span class="eu">Hezitzaileak:</span><span class="es">Educadoras:</span></strong> Ausolaneko Begiraleak (Pili, koordinatzailea)</li>
+                            <li><strong><span class="eu">Sukaldaritza:</span><span class="es">Cocina:</span></strong> Sukaldari profesionalen taldea</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+    <!-- Special 2-Year-Old Section -->
+    <div id="2urte" style="margin-top: 80px; padding-top: 60px; border-top: 1px solid var(--border-color);">
+        <div class="section-header text-center">
+            <span class="section-badge">
+                    <span class="eu">Berria Jantokian</span><span class="es">Nuevos Comensales</span>
+                </span>
+                <h2>
+                    <span class="eu">2 Urteko Gela: <span class="highlight">Egokitzapen Segurua</span></span>
+                    <span class="es">Aula de 2 Años: <span class="highlight">Adaptación Segura</span></span>
+                </h2>
+                <p>
+                    <span class="eu">Ekainaren 22ko bilerarako informazio berezia jantokian hasten diren txikienentzat.</span>
+                    <span class="es">Información especial para la reunión del 22 de junio orientada a los más pequeños que inician el comedor.</span>
+                </p>
+            </div>
+
+            <div class="two-years-grid">
+                <div class="two-years-info">
+                    <div class="card info-card active" data-tab="tab-adaptacion">
+                        <div class="card-icon"><i data-lucide="heart"></i></div>
+                        <div class="card-content">
+                            <h3><span class="eu">Egokitzapen Gida</span><span class="es">Guía de Adaptación</span></h3>
+                            <p>
+                                <span class="eu">Nola laguntzen diegun jantoki berria bere erritmoan ezagutzen.</span>
+                                <span class="es">Cómo les acompañamos para conocer el nuevo comedor a su propio ritmo.</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card info-card" data-tab="tab-rutinas">
+                        <div class="card-icon"><i data-lucide="clock"></i></div>
+                        <div class="card-content">
+                            <h3><span class="eu">Eguneroko Errutinak</span><span class="es">Rutinas Diarias</span></h3>
+                            <p>
+                                <span class="eu">Bazkaltzeko, lo egiteko eta higieneko uneak.</span>
+                                <span class="es">Los momentos de comida, siesta e higiene diaria.</span>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="card info-card" data-tab="tab-traer">
+                        <div class="card-icon"><i data-lucide="package"></i></div>
+                        <div class="card-content">
+                            <h3><span class="eu">Zer Ekarri Behar Da?</span><span class="es">¿Qué se debe traer?</span></h3>
+                            <p>
+                                <span class="eu">Mantalak, aldatzeko arropa eta txikienentzako beharrezkoak.</span>
+                                <span class="es">Batas, ropa de cambio y útiles necesarios para el día a día.</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="two-years-content-display">
+                    <div class="display-tab-content active" id="tab-adaptacion">
+                        <h4>
+                            <span class="eu">Maitasunez eta arretaz egokitzea</span>
+                            <span class="es">Adaptación con cariño y atención dedicada</span>
+                        </h4>
+                        <p class="tab-intro">
+                            <span class="eu">2 urteko haurren egokitzapena funtsezkoa da. Lehenengo egunetan arreta pertsonalizatua ematen zaie seguru senti daitezen.</span>
+                            <span class="es">La adaptación de los niños de 2 años es clave. Durante los primeros días reciben atención personalizada para garantizar su seguridad emocional.</span>
+                        </p>
+                        <ul class="tab-list">
+                            <li><i data-lucide="check-circle-2"></i> <span><strong>Ratio murriztua:</strong> <span class="eu">Begirale bakoitzeko haur gutxiago lehen egunetan.</span><span class="es">Menos niños por monitora durante el periodo inicial.</span></span></li>
+                            <li><i data-lucide="check-circle-2"></i> <span><strong>Erritmoen errespetua:</strong> <span class="eu">Ez dugu jatera behartzen, elikagaiekin jolastea eta dastatzea sustatzen dugu.</span><span class="es">No obligamos a comer, fomentamos la exploración y el gusto por la comida.</span></span></li>
+                            <li><i data-lucide="check-circle-2"></i> <span><strong>Komunikazio zuzena:</strong> <span class="eu">Familiekin eguneroko koadernoaren bidezko harremana.</span><span class="es">Comunicación diaria con las familias a través del cuaderno de comedor.</span></span></li>
+                        </ul>
+                    </div>
+
+                    <div class="display-tab-content" id="tab-rutinas">
+                        <h4>
+                            <span class="eu">Egitura eta lasaitasuna egunerokoan</span>
+                            <span class="es">Estructura y tranquilidad en su día a día</span>
+                        </h4>
+                        <p class="tab-intro">
+                            <span class="eu">Errutina egonkorrek segurtasuna ematen diote haurrari. Gure jantokiak ordutegi oso zainduak ditu:</span>
+                            <span class="es">Las rutinas estables aportan seguridad al niño. Nuestro comedor cuenta con tiempos muy cuidados:</span>
+                        </p>
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="time">12:30</div>
+                                <div class="desc">
+                                    <strong><span class="eu">Komunera joan eta eskuak garbitu</span><span class="es">Preparación e Higiene</span></strong><br>
+                                    <span class="eu">Gela prestatzen dugu eta eskuak garbitzeko ohitura lantzen dugu.</span>
+                                    <span class="es">Preparamos el aula y lavamos las manos de forma divertida.</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="time">12:45</div>
+                                <div class="desc">
+                                    <strong><span class="eu">Bazkaltzeko unea</span><span class="es">Hora de comer</span></strong><br>
+                                    <span class="eu">Giro lasaian jaten dugu, autonomiari bultzada emanez.</span>
+                                    <span class="es">Comemos en un ambiente tranquilo, potenciando la autonomía.</span>
+                                </div>
+                            </div>
+                            <div class="timeline-item">
+                                <div class="time">13:30</div>
+                                <div class="desc">
+                                    <strong><span class="eu">Siesta eta atsedenaldia</span><span class="es">Siesta y descanso</span></strong><br>
+                                    <span class="eu">Haur bakoitzak bere sehaska du lo kuluxka egiteko eta indarrak berritzeko.</span>
+                                    <span class="es">Cada niño dispone de su cuna para descansar y reponer energías.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="display-tab-content" id="tab-traer">
+                        <h4>
+                            <span class="eu">Jantokirako beharrezko materiala</span>
+                            <span class="es">Material necesario para el comedor</span>
+                        </h4>
+                        <p class="tab-intro">
+                            <span class="eu">Ikasturte hasieran, familiek material hau ekarri behar dute jantokira, izenarekin identifikatuta:</span>
+                            <span class="es">Al inicio de curso, las familias deben aportar el siguiente material debidamente marcado con el nombre:</span>
+                        </p>
+                        <ul class="material-list">
+                            <li>
+                                <span class="material-icon">🧥</span>
+                                <div>
+                                    <strong><span class="eu">2 Mantal gomadun</span><span class="es">2 Batas con goma</span></strong><br>
+                                    <span class="eu">Lepoko gomaduna eta botoirik gabea, autonomia sustatzeko.</span>
+                                    <span class="es">Sin botones y con cuello elástico para facilitar la autonomía.</span>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="material-icon">🧦</span>
+                                <div>
+                                    <strong><span class="eu">Aldatzeko arropa poltsa</span><span class="es">Bolsa de ropa de repuesto</span></strong><br>
+                                    <span class="eu">Ezustekorik egonez gero aldatu ahal izateko arropa osoa.</span>
+                                    <span class="es">Ropa completa para cambiarles en caso de escapes o manchas.</span>
+                                </div>
+                            </li>
+                            <li>
+                                <span class="material-icon">🧴</span>
+                                <div>
+                                    <strong><span class="eu">Toallatxoak eta pixoihalak</span><span class="es">Toallitas y pañales</span></strong><br>
+                                    <span class="eu">Pixoihalak erabiltzen jarraitzen duten haurrentzat.</span>
+                                    <span class="es">Para aquellos niños que aún estén en proceso de retirada del pañal.</span>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Accordion for FAQs -->
+            <div class="faq-accordion-container">
+                <h3 class="text-center">
+                    <span class="eu">2 Urteko Gurasoen Ohiko Galderak</span>
+                    <span class="es">Preguntas Frecuentes de Familias de 2 Años</span>
+                </h3>
+                <div class="accordion">
+                    <div class="accordion-item">
+                        <button class="accordion-header">
+                            <span>
+                                <span class="eu">Zer gertatzen da haurrak jaten ez badu?</span>
+                                <span class="es">¿Qué pasa si el niño o niña no come nada?</span>
+                            </span>
+                            <i data-lucide="chevron-down"></i>
+                        </button>
+                        <div class="accordion-body">
+                            <p>
+                                <span class="eu">Sekula ez dugu behartzen. Gurasoei egunero jakinarazten diegu zer jan duen eta kopuruak koadernoan apuntatzen ditugu. Pixkanaka, lagunekin batera, jateko ohitura hartzen joaten dira.</span>
+                                <span class="es">Nunca se les obliga a comer. Se informa diariamente a la familia de lo que ha comido apuntándolo en el cuaderno. Poco a poco, al ver a sus compañeros, se animan a probar y comer de todo.</span>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="accordion-item">
+                        <button class="accordion-header">
+                            <span>
+                                <span class="eu">Nola kudeatzen da pixoihalaren kentzea?</span>
+                                <span class="es">¿Cómo se gestiona el control de esfínteres (pañal)?</span>
+                            </span>
+                            <i data-lucide="chevron-down"></i>
+                        </button>
+                        <div class="accordion-body">
+                            <p>
+                                <span class="eu">Gure hezitzaileak gelekin koordinatuta daude. Pixoihala kentzeko prozesuan daudenean, komunera laguntzen diegu maiz eta aldatzeko arropa beti eskura izaten dugu.</span>
+                                <span class="es">Nuestras educadoras trabajan coordinadas con las aulas. Durante el proceso de retirada del pañal, les acompañamos al baño con frecuencia y disponemos de ropa de cambio para cualquier escape.</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="accordion-item">
+                        <button class="accordion-header">
+                            <span>
+                                <span class="eu">Nork ematen die bazkaltzen?</span>
+                                <span class="es">¿Quién les atiende durante la comida?</span>
+                            </span>
+                            <i data-lucide="chevron-down"></i>
+                        </button>
+                        <div class="accordion-body">
+                            <p>
+                                <span class="eu">2 urteko gelek beren begirale espezifikoak dituzte ratio murriztuarekin. Tutoreekin harreman zuzena dute eta laguntza handia eskaintzen diete lehen aste hauetan.</span>
+                                <span class="es">Las aulas de 2 años disponen de monitoras específicas con una ratio reducida. Colaboran estrechamente con las tutoras para darles la mayor seguridad y apoyo físico y emocional.</span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Documents Section -->
+    <section class="section special-section" id="dokumentazioa">
+        <div class="container">
+            <div class="section-header">
+                <h2>
+                    <span class="eu">Dokumentuak eta <span class="highlight">Deskargak</span></span>
+                    <span class="es">Documentos y <span class="highlight">Descargas</span></span>
+                </h2>
+                <p>
+                    <span class="eu">Jantokirako izen-emate orriak, araudiak eta bestelako dokumentu erabilgarriak.</span>
+                    <span class="es">Hojas de inscripción, normativas y otros documentos útiles para el comedor.</span>
+                </p>
+            </div>
+
+            <div class="grid-3" id="docsGrid">
+                <a href="#" class="card doc-card">
+                    <div class="doc-card-icon"><i data-lucide="file-down"></i></div>
+                    <h3><span class="eu">Izen-emate Orria</span><span class="es">Ficha de Inscripción</span></h3>
+                    <p>
+                        <span class="eu">2026-2027 ikasturterako jantoki zerbitzuan alta emateko eskaera-orria.</span>
+                        <span class="es">Formulario para solicitar el alta en el servicio de comedor para el curso 2026-2027.</span>
+                    </p>
+                    <span class="doc-link">
+                        <span class="eu">Deskargatu</span><span class="es">Descargar</span>
+                        <i data-lucide="arrow-right"></i>
+                    </span>
+                </a>
+
+                <a href="#" class="card doc-card">
+                    <div class="doc-card-icon"><i data-lucide="file-down"></i></div>
+                    <h3><span class="eu">Funtzionamendu IUP</span><span class="es">IUP Funcionamiento</span></h3>
+                    <p>
+                        <span class="eu">Jantokiaren urteko funtzionamendu eta antolakuntza araudi ofiziala.</span>
+                        <span class="es">Reglamento oficial anual de funcionamiento y organización del comedor.</span>
+                    </p>
+                    <span class="doc-link">
+                        <span class="eu">Deskargatu</span><span class="es">Descargar</span>
+                        <i data-lucide="arrow-right"></i>
+                    </span>
+                </a>
+
+                <a href="#" class="card doc-card">
+                    <div class="doc-card-icon"><i data-lucide="file-down"></i></div>
+                    <h3><span class="eu">Sendagaien Baimena</span><span class="es">Autorización Medicamentos</span></h3>
+                    <p>
+                        <span class="eu">Jantoki orduetan sendagaiak eman ahal izateko bete beharreko baimen orria.</span>
+                        <span class="es">Formulario para autorizar la administración de medicamentos durante el comedor.</span>
+                    </p>
+                    <span class="doc-link">
+                        <span class="eu">Deskargatu</span><span class="es">Descargar</span>
+                        <i data-lucide="arrow-right"></i>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Gallery Section -->
+    <section class="section" id="galeria">
+        <div class="container">
+            <div class="section-header text-center">
+                <span class="section-badge">
+                    <span class="eu">Gure Jantokia</span><span class="es">Nuestro Comedor</span>
+                </span>
+                <h2>
+                    <span class="eu">Jantokia <span class="highlight">Iruditan</span></span>
+                    <span class="es">El Comedor en <span class="highlight">Imágenes</span></span>
+                </h2>
+                <p>
+                    <span class="eu">Gure jantoki zerbitzuko, instalazioetako eta ekintzetako argazki errealak.</span>
+                    <span class="es">Imágenes reales del espacio del comedor, nuestras monitoras y las actividades diarias.</span>
+                </p>
+            </div>
+
+            <div class="gallery-grid" id="galleryGrid">
+                <div class="gallery-item">
+                    <img src="imagenes/comedor_1.jpg" alt="Comedor Escolar Mendia 1" loading="lazy">
+                    <div class="gallery-overlay">
+                        <i data-lucide="zoom-in"></i>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="imagenes/comedor_2.jpg" alt="Comedor Escolar Mendia 2" loading="lazy">
+                    <div class="gallery-overlay">
+                        <i data-lucide="zoom-in"></i>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="imagenes/comedor_3.jpg" alt="Comedor Escolar Mendia 3" loading="lazy">
+                    <div class="gallery-overlay">
+                        <i data-lucide="zoom-in"></i>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="imagenes/comedor_4.jpg" alt="Comedor Escolar Mendia 4" loading="lazy">
+                    <div class="gallery-overlay">
+                        <i data-lucide="zoom-in"></i>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="imagenes/comedor_5.jpg" alt="Comedor Escolar Mendia 5" loading="lazy">
+                    <div class="gallery-overlay">
+                        <i data-lucide="zoom-in"></i>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="imagenes/comedor_6.jpg" alt="Comedor Escolar Mendia 6" loading="lazy">
+                    <div class="gallery-overlay">
+                        <i data-lucide="zoom-in"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 16px;">
+                        <img src="imagenes/logo_mendia.png" alt="Logo CEIP Mendia HLHI" style="height: 48px; width: auto; object-fit: contain; background-color: rgba(255,255,255,0.9); padding: 4px; border-radius: 6px;">
+                        <h3 style="margin-bottom: 0;">CEIP MENDIA HLHI</h3>
+                    </div>
+                    <p>
+                        <span class="eu">Eskola Publikoa jantoki zerbitzuarekin. Ikasleen ongizatea bermatzen.</span>
+                        <span class="es">Escuela Pública con servicio de comedor. Comprometidos con el bienestar de nuestro alumnado.</span>
+                    </p>
+                </div>
+                <div class="footer-contact">
+                    <h4><span class="eu">Harremana eta Arreta</span><span class="es">Contacto y Atención</span></h4>
+                    <p><i data-lucide="user"></i> <span><strong>Asier Ruiz</strong> (<span class="eu">Jantokiko Arduraduna</span><span class="es">Resp. de Comedor</span>)</span></p>
+                    <p><i data-lucide="clock"></i> <span><span class="eu">Arreta: Astelehenetik ostiralera, 9:30 - 10:30</span><span class="es">Atención: Lunes a viernes, 9:30 - 10:30</span></span></p>
+                    <p><i data-lucide="map-pin"></i> CEIP Mendia HLHI, Balmaseda</p>
+                    <p><i data-lucide="mail"></i> jantokia@mendiahlhi.net</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 CEIP Mendia HLHI. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Lightbox Modal for News Images -->
+    <div id="imageModal" class="modal">
+        <span class="modal-close"><i data-lucide="x"></i></span>
+        <img class="modal-content" id="modalImage" alt="Zoomed News Image">
+    </div>
+
+    <!-- Firebase / Local Database Script connection -->
+    <script src="app.js"></script>
+</body>
+</html>

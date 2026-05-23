@@ -1,0 +1,1322 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administración del Comedor Escolar - MENDIA HLHI</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <style>
+        :root {
+            --hue: 155;
+            --bg-primary: hsl(var(--hue), 20%, 98%);
+            --bg-secondary: hsl(var(--hue), 15%, 94%);
+            --bg-card: hsl(var(--hue), 20%, 100%);
+            --border-color: hsla(var(--hue), 15%, 85%, 0.8);
+            --text-primary: hsl(var(--hue), 25%, 15%);
+            --text-secondary: hsl(var(--hue), 10%, 40%);
+            --accent: hsl(150, 44%, 32%);
+            --accent-light: hsl(150, 44%, 90%);
+            --accent-hover: hsl(150, 48%, 25%);
+            --accent-glow: hsla(150, 44%, 32%, 0.15);
+            --radius-md: 16px;
+            --radius-sm: 8px;
+            --radius-full: 9999px;
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            --success: hsl(145, 63%, 32%);
+            --error: hsl(0, 75%, 45%);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3, button {
+            font-family: 'Outfit', sans-serif;
+        }
+
+        .admin-container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-md);
+            padding: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 24px;
+            margin-bottom: 32px;
+        }
+
+        .header h1 {
+            font-size: 28px;
+            color: var(--accent);
+        }
+
+        .view-site-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 20px;
+            background-color: var(--accent-light);
+            color: var(--accent);
+            text-decoration: none;
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            font-size: 14px;
+            transition: var(--transition);
+        }
+
+        .view-site-btn:hover {
+            background-color: var(--accent);
+            color: white;
+        }
+
+        /* Tabs Control */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 32px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 8px;
+        }
+
+        .tab-btn {
+            background: none;
+            border: none;
+            padding: 12px 20px;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-secondary);
+            cursor: pointer;
+            border-radius: var(--radius-sm);
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .tab-btn:hover {
+            color: var(--accent);
+            background-color: var(--bg-primary);
+        }
+
+        .tab-btn.active {
+            color: var(--accent);
+            background-color: var(--accent-light);
+        }
+
+        /* Forms Layout */
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        label {
+            display: flex;
+            align-items: center;
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        label span.lang-tag {
+            font-size: 11px;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 4px;
+            margin-left: 6px;
+        }
+
+        label span.lang-eu { background-color: #3b82f6; color: white; }
+        label span.lang-es { background-color: #ef4444; color: white; }
+
+        input[type="text"], input[type="date"], textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            font-family: 'Inter', sans-serif;
+            font-size: 15px;
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            transition: var(--transition);
+        }
+
+        input[type="text"]:focus, textarea:focus, select:focus {
+            outline: none;
+            border-color: var(--accent);
+            box-shadow: 0 0 0 3px var(--accent-glow);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        /* Mode Selectors (File vs External Link) */
+        .mode-selector {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .radio-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .radio-label input[type="radio"] {
+            accent-color: var(--accent);
+        }
+
+        .radio-label input[type="radio"]:checked + span {
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* File Upload Styling */
+        .file-upload-wrapper {
+            position: relative;
+            border: 2px dashed var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 24px;
+            text-align: center;
+            background-color: var(--bg-primary);
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .file-upload-wrapper:hover {
+            border-color: var(--accent);
+            background-color: var(--accent-light);
+        }
+
+        .file-upload-wrapper input[type="file"] {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            cursor: pointer;
+        }
+
+        .upload-icon {
+            font-size: 32px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .file-upload-wrapper p {
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .selected-file-info {
+            margin-top: 12px;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--accent);
+            display: none;
+        }
+
+        /* Dynamic Field display toggling */
+        .source-file-block, .source-link-block {
+            transition: var(--transition);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        /* Buttons */
+        .btn-submit {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: var(--accent);
+            color: white;
+            border: none;
+            padding: 14px 28px;
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            font-size: 15px;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background-color: var(--accent-hover);
+            transform: translateY(-1px);
+        }
+
+        .btn-submit svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Status Messages */
+        .status-box {
+            padding: 16px;
+            border-radius: var(--radius-sm);
+            margin-top: 24px;
+            font-weight: 500;
+            font-size: 15px;
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        .status-box.success {
+            display: block;
+            background-color: hsl(145, 60%, 94%);
+            border: 1px solid hsl(145, 50%, 80%);
+            color: var(--success);
+        }
+
+        .status-box.error {
+            display: block;
+            background-color: hsl(0, 70%, 95%);
+            border: 1px solid hsl(0, 60%, 85%);
+            color: var(--error);
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        /* Item List styles */
+        .items-list-container {
+            margin-top: 40px;
+            border-top: 1px solid var(--border-color);
+            padding-top: 32px;
+        }
+
+        .items-list-title {
+            font-size: 18px;
+            color: var(--accent);
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-weight: 600;
+        }
+
+        .items-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .item-row {
+            background-color: var(--bg-primary);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-sm);
+            padding: 16px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition);
+        }
+
+        .item-row:hover {
+            border-color: var(--accent);
+        }
+
+        .item-info {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            max-width: 80%;
+        }
+
+        .item-main-text {
+            font-weight: 600;
+            font-size: 15px;
+            word-break: break-all;
+        }
+
+        .item-sub-text {
+            font-size: 12px;
+            color: var(--text-secondary);
+            word-break: break-all;
+        }
+
+        .btn-delete {
+            background: none;
+            border: 1px solid hsl(0, 75%, 85%);
+            color: var(--error);
+            width: 36px;
+            height: 36px;
+            border-radius: var(--radius-full);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        .btn-delete:hover {
+            background-color: hsl(0, 75%, 95%);
+            border-color: var(--error);
+            transform: scale(1.05);
+        }
+
+        .btn-delete svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .spin {
+            animation: spin 1s linear infinite;
+        }}
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+</head>
+<body>
+
+    <div class="admin-container">
+        <div class="header">
+            <div>
+                <h1>Gestión del Comedor</h1>
+                <p style="color: var(--text-secondary); font-size: 14px; margin-top: 4px;">Panel de administración local (CEIP Mendia HLHI)</p>
+            </div>
+            <a href="index.html" target="_blank" class="view-site-btn">
+                <span>Ver Web Comedor</span>
+                <i data-lucide="external-link"></i>
+            </a>
+        </div>
+
+        <!-- Tab Links -->
+        <div class="tabs" style="overflow-x: auto; white-space: nowrap;">
+            <button class="tab-btn active" onclick="openTab(event, 'tab-inicio')">
+                <i data-lucide="home"></i> Inicio
+            </button>
+            <button class="tab-btn" onclick="openTab(event, 'tab-news')">
+                <i data-lucide="newspaper"></i> Noticias
+            </button>
+            <button class="tab-btn" onclick="openTab(event, 'tab-menus')">
+                <i data-lucide="calendar"></i> Menús
+            </button>
+            <button class="tab-btn" onclick="openTab(event, 'tab-org')">
+                <i data-lucide="users"></i> Organización
+            </button>
+            <button class="tab-btn" onclick="openTab(event, 'tab-docs')">
+                <i data-lucide="file-text"></i> Documentos
+            </button>
+            <button class="tab-btn" onclick="openTab(event, 'tab-gallery')">
+                <i data-lucide="image"></i> Galería
+            </button>
+        </div>
+
+        <!-- Status Message Box -->
+        <div id="statusBox" class="status-box"></div>
+
+        
+        <!-- 0. INICIO TAB -->
+        <div id="tab-inicio" class="tab-content active">
+            <h3 style="margin-bottom: 20px; color: var(--accent);">Textos de Bienvenida (Página Principal)</h3>
+            <form id="formInicio" onsubmit="submitFormConfig(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="hero_title_eu">Título Principal <span class="lang-tag lang-eu">EUS</span></label>
+                        <input type="text" id="hero_title_eu" name="hero_title_eu" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="hero_title_es">Título Principal <span class="lang-tag lang-es">CAS</span></label>
+                        <input type="text" id="hero_title_es" name="hero_title_es" required>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="hero_desc_eu">Texto Descriptivo <span class="lang-tag lang-eu">EUS</span></label>
+                        <textarea id="hero_desc_eu" name="hero_desc_eu" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="hero_desc_es">Texto Descriptivo <span class="lang-tag lang-es">CAS</span></label>
+                        <textarea id="hero_desc_es" name="hero_desc_es" required></textarea>
+                    </div>
+                </div>
+                <button type="submit" class="btn-submit"><i data-lucide="save"></i> Guardar Textos de Inicio</button>
+            </form>
+        </div>
+
+        <!-- 1. NOTICIAS TAB -->
+        <div id="tab-news" class="tab-content">
+            <form id="formNews" onsubmit="submitFormNews(event)">
+                <div class="form-group">
+                    <label for="news_date">Fecha de Publicación</label>
+                    <input type="date" id="news_date" name="date" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="news_title_eu">Título <span class="lang-tag lang-eu">EUS</span></label>
+                        <input type="text" id="news_title_eu" name="title_eu" placeholder="Adib: Gurasoen bilera (Hautazkoa)...">
+                    </div>
+                    <div class="form-group">
+                        <label for="news_title_es">Título <span class="lang-tag lang-es">CAS</span></label>
+                        <input type="text" id="news_title_es" name="title_es" placeholder="Ej: Reunión de familias (Opcional)...">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="news_text_eu">Texto de la noticia <span class="lang-tag lang-eu">EUS</span></label>
+                    <textarea id="news_text_eu" name="text_eu" placeholder="Idatzi albistearen edukia (Hautazkoa)..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="news_text_es">Texto de la noticia <span class="lang-tag lang-es">CAS</span></label>
+                    <textarea id="news_text_es" name="text_es" placeholder="Escribe el contenido de la noticia (Opcional)..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label>Imagen de la Noticia (Opcional)</label>
+                    <div class="file-upload-wrapper" tabindex="0" id="newsImageWrapper" style="outline: none;">
+                        <i data-lucide="image" class="upload-icon"></i>
+                        <p>Haz clic para seleccionar o presiona <strong>Ctrl+V</strong> en este formulario para pegar una imagen desde el portapapeles</p>
+                        <input type="file" id="newsImage" accept="image/*" onchange="updateFileInfo(this, 'newsImageInfo')">
+                        <div id="newsImageInfo" class="selected-file-info"></div>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit">
+                    <i data-lucide="send"></i> Publicar Noticia
+                </button>
+            </form>
+            
+            <div class="items-list-container">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px;">
+                    <h3 class="items-list-title" style="margin-bottom: 0;"><i data-lucide="newspaper"></i> Noticias Publicadas / Argitaratutako Albisteak</h3>
+                    <button id="saveNewsOrderBtn" class="btn-submit" style="display: none; padding: 6px 12px; font-size: 13px; background-color: #10b981;" onclick="saveNewsOrder()">
+                        <i data-lucide="save"></i> Guardar Orden
+                    </button>
+                </div>
+                <div class="items-list" id="listNews">
+                    <!-- Se cargará dinámicamente -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. DOCUMENTOS TAB -->
+        <div id="tab-docs" class="tab-content">
+            <form id="formDocs" onsubmit="submitFormGeneral(event, '/api/add_document', 'doc')">
+                <div class="form-group">
+                    <label>Origen del Documento</label>
+                    <div class="mode-selector">
+                        <label class="radio-label">
+                            <input type="radio" name="doc_source" value="file" checked onchange="toggleSourceMode('doc', 'file')">
+                            <span>Subir archivo local (PDF)</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="doc_source" value="link" onchange="toggleSourceMode('doc', 'link')">
+                            <span>Enlace a Google Drive o URL</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Local File Mode -->
+                <div class="form-group source-file-block" id="doc-file-block">
+                    <label>Archivo PDF del Documento</label>
+                    <div class="file-upload-wrapper">
+                        <i data-lucide="upload-cloud" class="upload-icon"></i>
+                        <p>Arrastra o haz clic para seleccionar el PDF del documento</p>
+                        <input type="file" id="docFile" accept=".pdf" onchange="updateFileInfo(this, 'docFileInfo')">
+                        <div id="docFileInfo" class="selected-file-info"></div>
+                    </div>
+                </div>
+
+                <!-- Google Drive Link Mode -->
+                <div class="form-group source-link-block hidden" id="doc-link-block">
+                    <label for="doc_url">Enlace de Google Drive / Compartido</label>
+                    <input type="text" id="doc_url" name="externalUrl" placeholder="https://drive.google.com/file/d/.../view?usp=sharing">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="doc_title_eu">Nombre del Documento <span class="lang-tag lang-eu">EUS</span></label>
+                        <input type="text" id="doc_title_eu" name="title_eu" placeholder="Adib: Izen-emate Orria" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="doc_title_es">Nombre del Documento <span class="lang-tag lang-es">CAS</span></label>
+                        <input type="text" id="doc_title_es" name="title_es" placeholder="Ej: Ficha de Inscripción" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="doc_desc_eu">Descripción corta <span class="lang-tag lang-eu">EUS</span></label>
+                        <input type="text" id="doc_desc_eu" name="desc_eu" placeholder="Adib: Jantokian alta emateko..." required>
+                    </div>
+                    <div class="form-group">
+                        <label for="doc_desc_es">Descripción corta <span class="lang-tag lang-es">CAS</span></label>
+                        <input type="text" id="doc_desc_es" name="desc_es" placeholder="Ej: Formulario oficial para alta..." required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="doc_icon">Icono Visual</label>
+                    <select id="doc_icon" name="icon">
+                        <option value="file-down">Flecha de descarga (Estándar)</option>
+                        <option value="file-text">Hoja de texto (Información)</option>
+                        <option value="shield-check">Escudo con check (Baimenak / Seguridad)</option>
+                        <option value="link">Enlace (Google Drive)</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="btn-submit">
+                    <i data-lucide="plus-circle"></i> Subir / Enlazar Documento
+                </button>
+            </form>
+            
+            <div class="items-list-container">
+                <h3 class="items-list-title"><i data-lucide="file-text"></i> Documentos Registrados / Erregistratutako Dokumentuak</h3>
+                <div class="items-list" id="listDocs">
+                    <!-- Se cargará dinámicamente -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. MENUS TAB -->
+        <div id="tab-menus" class="tab-content">
+            <form id="formMenus" onsubmit="submitFormGeneral(event, '/api/add_menu', 'menu')">
+                <div class="form-group">
+                    <label>Origen del Menú</label>
+                    <div class="mode-selector">
+                        <label class="radio-label">
+                            <input type="radio" name="menu_source" value="file" checked onchange="toggleSourceMode('menu', 'file')">
+                            <span>Subir archivo local (PDF)</span>
+                        </label>
+                        <label class="radio-label">
+                            <input type="radio" name="menu_source" value="link" onchange="toggleSourceMode('menu', 'link')">
+                            <span>Enlace a Google Drive o URL</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Local File Mode -->
+                <div class="form-group source-file-block" id="menu-file-block">
+                    <label>Archivo PDF del Menú</label>
+                    <div class="file-upload-wrapper">
+                        <i data-lucide="upload-cloud" class="upload-icon"></i>
+                        <p>Arrastra o haz clic para seleccionar el PDF del menú</p>
+                        <input type="file" id="menuFile" accept=".pdf" onchange="updateFileInfo(this, 'menuFileInfo')">
+                        <div id="menuFileInfo" class="selected-file-info"></div>
+                    </div>
+                </div>
+
+                <!-- Google Drive Link Mode -->
+                <div class="form-group source-link-block hidden" id="menu-link-block">
+                    <label for="menu_url">Enlace a Carpeta de Google Drive / Compartido</label>
+                    <input type="text" id="menu_url" name="externalUrl" placeholder="https://drive.google.com/drive/folders/...">
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="menu_name_eu">Nombre del Menú <span class="lang-tag lang-eu">EUS</span></label>
+                        <input type="text" id="menu_name_eu" name="name_eu" placeholder="Adib: Ekaineko Menu Basala" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="menu_name_es">Nombre del Menú <span class="lang-tag lang-es">CAS</span></label>
+                        <input type="text" id="menu_name_es" name="name_es" placeholder="Ej: Menú Basal de Junio" required>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn-submit">
+                    <i data-lucide="plus-circle"></i> Subir / Enlazar Menú
+                </button>
+            </form>
+            
+            <div class="items-list-container">
+                <h3 class="items-list-title"><i data-lucide="calendar"></i> Menús del Mes Registrados / Erregistratutako Menuak</h3>
+                <div class="items-list" id="listMenus">
+                    <!-- Se cargará dinámicamente -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. ORGANIZACION TAB -->
+        <div id="tab-org" class="tab-content">
+            <h3 style="margin-bottom: 20px; color: var(--accent);">Textos de Organización y Equipo</h3>
+            <form id="formOrg" onsubmit="submitFormConfig(event)">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="org_schedule_eu">Horarios (HTML/Lista) <span class="lang-tag lang-eu">EUS</span></label>
+                        <textarea id="org_schedule_eu" name="org_schedule_eu" style="min-height: 150px; font-family: monospace;" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="org_schedule_es">Horarios (HTML/Lista) <span class="lang-tag lang-es">CAS</span></label>
+                        <textarea id="org_schedule_es" name="org_schedule_es" style="min-height: 150px; font-family: monospace;" required></textarea>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="org_team_eu">Equipo (HTML/Lista) <span class="lang-tag lang-eu">EUS</span></label>
+                        <textarea id="org_team_eu" name="org_team_eu" style="min-height: 100px; font-family: monospace;" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="org_team_es">Equipo (HTML/Lista) <span class="lang-tag lang-es">CAS</span></label>
+                        <textarea id="org_team_es" name="org_team_es" style="min-height: 100px; font-family: monospace;" required></textarea>
+                    </div>
+                </div>
+                <button type="submit" class="btn-submit"><i data-lucide="save"></i> Guardar Textos de Organización</button>
+            </form>
+        </div>
+
+        <!-- 6. GALERIA TAB -->
+        <div id="tab-gallery" class="tab-content">
+            <form id="formGallery" onsubmit="submitFormGallery(event)">
+                <div class="form-group">
+                    <label>Subir Nueva Imagen a la Galería</label>
+                    <div class="file-upload-wrapper" id="galleryImageWrapper">
+                        <i data-lucide="image" class="upload-icon"></i>
+                        <p>Arrastra o haz clic para subir una foto (JPG/PNG)</p>
+                        <input type="file" id="galleryImage" accept="image/*" required onchange="updateFileInfo(this, 'galleryImageInfo')">
+                        <div id="galleryImageInfo" class="selected-file-info"></div>
+                    </div>
+                </div>
+                <button type="submit" class="btn-submit"><i data-lucide="plus-circle"></i> Añadir a Galería</button>
+            </form>
+            <div class="items-list-container">
+                <h3 class="items-list-title"><i data-lucide="image"></i> Imágenes de la Galería</h3>
+                <div class="items-list" id="listGallery" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <!-- Se cargará dinámicamente -->
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        // Set default date to today
+        document.getElementById('news_date').valueAsDate = new Date();
+
+        lucide.createIcons();
+
+        // Global variables to store pasted image from clipboard
+        let pastedImageBase64 = null;
+        let pastedImageName = null;
+
+        // If user manually changes the file input, clear the pasted image data
+        document.getElementById('newsImage').addEventListener('change', () => {
+            pastedImageBase64 = null;
+            pastedImageName = null;
+        });
+
+        // Event listener for paste (Ctrl+V) on the news form
+        document.getElementById('formNews').addEventListener('paste', (e) => {
+            const items = (e.clipboardData || window.clipboardData).items;
+            for (let i = 0; i < items.length; i++) {
+                if (items[i].type.indexOf('image') !== -1) {
+                    const file = items[i].getAsFile();
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(evt) {
+                        pastedImageBase64 = evt.target.result.split(',')[1];
+                        pastedImageName = 'pegado_' + Date.now() + '.png';
+                        
+                        const infoDiv = document.getElementById('newsImageInfo');
+                        infoDiv.textContent = `Imagen cargada desde el portapapeles: ${pastedImageName}`;
+                        infoDiv.style.display = 'block';
+                        
+                        // Clear file input since we pasted an image
+                        document.getElementById('newsImage').value = '';
+                    };
+                    
+                    reader.readAsDataURL(file);
+                    e.preventDefault(); // Prevent pasting text representation if input is focused
+                    break;
+                }
+            }
+        });
+
+        function openTab(evt, tabId) {
+            const tabContents = document.getElementsByClassName("tab-content");
+            for (let i = 0; i < tabContents.length; i++) {
+                tabContents[i].classList.remove("active");
+            }
+
+            const tabBtns = document.getElementsByClassName("tab-btn");
+            for (let i = 0; i < tabBtns.length; i++) {
+                tabBtns[i].classList.remove("active");
+            }
+
+            document.getElementById(tabId).classList.add("active");
+            evt.currentTarget.classList.add("active");
+
+            document.getElementById('statusBox').style.display = 'none';
+        }
+
+        function toggleSourceMode(prefix, mode) {
+            const fileBlock = document.getElementById(`${prefix}-file-block`);
+            const linkBlock = document.getElementById(`${prefix}-link-block`);
+            const fileInput = document.getElementById(`${prefix}File`);
+            const linkInput = document.getElementById(`${prefix}_url`);
+
+            if (mode === 'file') {
+                fileBlock.classList.remove('hidden');
+                linkBlock.classList.add('hidden');
+                fileInput.required = true;
+                linkInput.required = false;
+            } else {
+                fileBlock.classList.add('hidden');
+                linkBlock.classList.remove('hidden');
+                fileInput.required = false;
+                linkInput.required = true;
+            }
+        }
+
+        // Initialize required fields
+        toggleSourceMode('doc', 'file');
+        toggleSourceMode('menu', 'file');
+
+        function updateFileInfo(input, infoId) {
+            const infoDiv = document.getElementById(infoId);
+            if (input.files.length > 0) {
+                const file = input.files[0];
+                infoDiv.textContent = `Archivo seleccionado: ${file.name} (${(file.size / 1024).toFixed(1)} KB)`;
+                infoDiv.style.display = 'block';
+            } else {
+                infoDiv.style.display = 'none';
+            }
+        }
+
+        function showStatus(message, isSuccess) {
+            const statusBox = document.getElementById('statusBox');
+            statusBox.textContent = message;
+            statusBox.className = 'status-box ' + (isSuccess ? 'success' : 'error');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Submit form for News (supporting optional Image Base64 - local file or pasted)
+        function submitFormNews(event) {
+            event.preventDefault();
+            const form = event.target;
+            const fileInput = document.getElementById('newsImage');
+            
+            const formData = new FormData(form);
+            const payload = {};
+            formData.forEach((value, key) => payload[key] = value);
+
+            if (pastedImageBase64 && pastedImageName) {
+                payload.imageName = pastedImageName;
+                payload.imageBase64 = pastedImageBase64;
+                sendPostRequest('/api/add_news', payload, form);
+            } else if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    payload.imageName = file.name;
+                    payload.imageBase64 = e.target.result.split(',')[1];
+                    sendPostRequest('/api/add_news', payload, form);
+                };
+                reader.onerror = function() {
+                    showStatus('Error al leer la imagen.', false);
+                };
+                reader.readAsDataURL(file);
+            } else {
+                sendPostRequest('/api/add_news', payload, form);
+            }
+        }
+
+        // General submit handler for Documents / Menus (handles file upload or external URL)
+        function submitFormGeneral(event, url, prefix) {
+            event.preventDefault();
+            const form = event.target;
+            const isExternal = form.querySelector(`input[name="${prefix}_source"]:checked`).value === 'link';
+            
+            const formData = new FormData(form);
+            const payload = {
+                isExternal: isExternal
+            };
+            formData.forEach((value, key) => {
+                if (key !== `${prefix}_source`) {
+                    payload[key] = value;
+                }
+            });
+
+            if (isExternal) {
+                // If it is external link, just send the URL directly
+                sendPostRequest(url, payload, form);
+            } else {
+                // If it is file upload, read file as base64
+                const fileInput = document.getElementById(`${prefix}File`);
+                if (fileInput.files.length === 0) {
+                    showStatus('Por favor, selecciona un archivo PDF.', false);
+                    return;
+                }
+                const file = fileInput.files[0];
+                const reader = new FileReader();
+
+                reader.onload = function(e) {
+                    payload.fileName = file.name;
+                    payload.fileBase64 = e.target.result.split(',')[1];
+                    sendPostRequest(url, payload, form);
+                };
+                reader.onerror = function() {
+                    showStatus('Error al leer el archivo PDF.', false);
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Send standard Fetch POST request
+        async function sendPostRequest(url, payload, form) {
+            const submitBtn = form ? form.querySelector('button[type="submit"]') : null;
+            let originalHtml = '';
+            if (submitBtn) {
+                originalHtml = submitBtn.innerHTML;
+                submitBtn.innerHTML = '<i data-lucide="loader-2" class="spin"></i> Procesando...';
+                submitBtn.disabled = true;
+                lucide.createIcons({root: submitBtn});
+            }
+
+            // Auto-translate missing fields
+            const keys = Object.keys(payload);
+            for (let i = 0; i < keys.length; i++) {
+                const key = keys[i];
+                let isEs = key.endsWith('_es') || key.endsWith('Es');
+                let isEu = key.endsWith('_eu') || key.endsWith('Eu');
+                
+                if (!isEs && !isEu) continue;
+                
+                let partnerKey = '';
+                if (key.endsWith('_es')) partnerKey = key.replace('_es', '_eu');
+                else if (key.endsWith('Es')) partnerKey = key.replace('Es', 'Eu');
+                else if (key.endsWith('_eu')) partnerKey = key.replace('_eu', '_es');
+                else if (key.endsWith('Eu')) partnerKey = key.replace('Eu', 'Es');
+                
+                if (partnerKey && (!payload[partnerKey] || payload[partnerKey].trim() === '')) {
+                    const sourceText = payload[key];
+                    if (sourceText && sourceText.trim() !== '') {
+                        const sourceLang = isEs ? 'es' : 'eu';
+                        const targetLang = isEs ? 'eu' : 'es';
+                        try {
+                            const api = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(sourceText)}&langpair=${sourceLang}|${targetLang}`;
+                            const res = await fetch(api);
+                            const data = await res.json();
+                            if (data.responseData && data.responseData.translatedText) {
+                                payload[partnerKey] = data.responseData.translatedText;
+                            }
+                        } catch (err) {
+                            console.error("Error auto-translating", err);
+                        }
+                    }
+                }
+            }
+
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    showStatus(data.message, true);
+                    if (form) form.reset();
+                    
+                    // Reset date for news
+                    if (form && form.id === 'formNews') {
+                        document.getElementById('news_date').valueAsDate = new Date();
+                        pastedImageBase64 = null;
+                        pastedImageName = null;
+                    }
+                    
+                    // Reset all file wrapper infos and displays
+                    if (form) {
+                        form.querySelectorAll('.selected-file-info').forEach(info => {
+                            info.style.display = 'none';
+                        });
+                    }
+                    
+                    // Reset tab toggle elements
+                    const prefix = form.id === 'formDocs' ? 'doc' : (form.id === 'formMenus' ? 'menu' : '');
+                    if (prefix) {
+                        toggleSourceMode(prefix, 'file');
+                        form.querySelector(`input[name="${prefix}_source"][value="file"]`).checked = true;
+                    }
+
+                    // Reload the lists to reflect changes
+                    loadAndRenderLists();
+                } else {
+                    showStatus('Error: ' + data.message, false);
+                }
+            })
+            .catch(err => {
+                showStatus('Error de conexión con el servidor local.', false);
+            });
+        }
+
+        // Fetch, load, and render lists of news, docs, and menus
+        
+        function submitFormConfig(event) {
+            event.preventDefault();
+            const form = event.target;
+            const formData = new FormData(form);
+            const payload = {};
+            // We need to merge with existing config to not overwrite what's not in this form
+            fetch('data.json?t=' + Date.now()).then(r=>r.json()).then(db => {
+                const config = db.config || {};
+                formData.forEach((value, key) => config[key] = value);
+                sendPostRequest('/api/save_config', config, form);
+            });
+        }
+
+        function submitFormGallery(event) {
+            event.preventDefault();
+            const form = event.target;
+            const fileInput = document.getElementById('galleryImage');
+            if (fileInput.files.length === 0) return;
+            const file = fileInput.files[0];
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const payload = {
+                    imageName: file.name,
+                    imageBase64: e.target.result.split(',')[1]
+                };
+                sendPostRequest('/api/add_gallery', payload, form);
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function deleteGalleryItem(id) {
+            if (confirm("¿Estás seguro de que deseas eliminar esta imagen de la galería?")) {
+                sendDeleteRequest('/api/delete_gallery', { id: id });
+            }
+        }
+
+        function renderGallery(gallery) {
+            const listGallery = document.getElementById('listGallery');
+            listGallery.innerHTML = '';
+            if (!gallery || gallery.length === 0) {
+                listGallery.innerHTML = '<div style="grid-column: span 2; padding: 12px; color: var(--text-secondary); text-align: center;">No hay imágenes.</div>';
+                return;
+            }
+            gallery.forEach(item => {
+                const div = document.createElement('div');
+                div.style = "position: relative; border-radius: 8px; overflow: hidden; border: 1px solid var(--border-color);";
+                div.innerHTML = `
+                    <img src="${item.imageUrl}" style="width: 100%; height: 120px; object-fit: cover; display: block;" />
+                    <button class="btn-delete" style="position: absolute; top: 8px; right: 8px; background: white; border: none; box-shadow: 0 2px 4px rgba(0,0,0,0.2);" onclick="deleteGalleryItem(${item.id})">
+                        <i data-lucide="trash-2" style="width: 16px; height: 16px; color: red;"></i>
+                    </button>
+                `;
+                listGallery.appendChild(div);
+            });
+        }
+
+        function populateConfigForms(config) {
+            if (!config) return;
+            const fields = ['hero_title_eu', 'hero_title_es', 'hero_desc_eu', 'hero_desc_es', 'org_schedule_eu', 'org_schedule_es', 'org_team_eu', 'org_team_es'];
+            fields.forEach(f => {
+                const el = document.getElementById(f);
+                if (el && config[f]) {
+                    el.value = config[f];
+                }
+            });
+        }
+
+        function loadAndRenderLists() {
+            fetch('data.json?t=' + Date.now())
+                .then(res => res.json())
+                .then(data => {
+                    renderNews(data.news || []);
+                    renderDocs(data.documents || []);
+                    renderMenus(data.menus || []);
+                    renderGallery(data.gallery || []);
+                    populateConfigForms(data.config || {});
+                    lucide.createIcons();
+                })
+                .catch(err => {
+                    console.error('Error al cargar data.json:', err);
+                });
+        }
+
+        function renderNews(news) {
+            const listNews = document.getElementById('listNews');
+            listNews.innerHTML = '';
+            if (news.length === 0) {
+                listNews.innerHTML = '<div style="padding: 12px; color: var(--text-secondary); text-align: center; font-size: 14px;">No hay noticias publicadas.</div>';
+                return;
+            }
+            news.forEach(item => {
+                const title = item.title_es || item.title_eu || "Noticia sin título / Izenbururik gabeko albistea";
+                const text = item.text_es || item.text_eu || "";
+                const imgTag = item.imageUrl ? `<img src="${item.imageUrl}" style="width: 50px; height: 50px; object-fit: cover; border-radius: 4px; margin-right: 12px; border: 1px solid var(--border-color);" />` : '';
+                
+                const isHidden = item.isHidden || false;
+                const eyeIcon = isHidden ? 'eye-off' : 'eye';
+                const eyeColor = isHidden ? 'var(--text-secondary)' : '#10b981';
+                const eyeTitle = isHidden ? 'Noticia oculta en la web (Click para mostrar)' : 'Noticia visible en la web (Click para ocultar)';
+
+                const row = document.createElement('div');
+                row.className = 'item-row';
+                row.setAttribute('data-id', item.id);
+                row.setAttribute('data-hidden', isHidden);
+                row.innerHTML = `
+                    <div style="display: flex; align-items: center; width: 85%;">
+                        <i data-lucide="grip-vertical" class="drag-handle" style="cursor: grab; margin-right: 12px; color: var(--text-secondary);"></i>
+                        ${imgTag}
+                        <div class="item-info">
+                            <span class="item-main-text" style="${isHidden ? 'text-decoration: line-through; opacity: 0.6;' : ''}">${title}</span>
+                            <span class="item-sub-text">${item.date} ${text ? '- ' + text.substring(0, 80) + '...' : ''}</span>
+                        </div>
+                    </div>
+                    <div style="display: flex; gap: 8px;">
+                        <button class="btn-delete" style="color: ${eyeColor}; border-color: ${isHidden ? 'transparent' : '#10b98130'}; background: ${isHidden ? 'transparent' : '#10b98110'};" onclick="toggleNewsVisibilityLocal(this, ${item.id})" title="${eyeTitle}">
+                            <i data-lucide="${eyeIcon}"></i>
+                        </button>
+                        <button class="btn-delete" onclick="deleteNewsItem(${item.id}, '${title.replace(/'/g, "\\'")}')" title="Eliminar Noticia">
+                            <i data-lucide="trash-2"></i>
+                        </button>
+                    </div>
+                `;
+                listNews.appendChild(row);
+            });
+            
+            // Initialize Sortable
+            if (window.Sortable) {
+                new Sortable(listNews, {
+                    handle: '.drag-handle',
+                    animation: 150,
+                    ghostClass: 'sortable-ghost',
+                    onEnd: function (evt) {
+                        // Just show the save button when reordered
+                        const btn = document.getElementById('saveNewsOrderBtn');
+                        if(btn) btn.style.display = 'inline-flex';
+                    }
+                });
+            }
+        }
+
+        function saveNewsOrder() {
+            const listNews = document.getElementById('listNews');
+            const btn = document.getElementById('saveNewsOrderBtn');
+            const items = Array.from(listNews.children).map(row => {
+                return {
+                    id: row.getAttribute('data-id'),
+                    isHidden: row.getAttribute('data-hidden') === 'true'
+                };
+            });
+            
+            btn.innerHTML = '<i data-lucide="loader-2" class="spin"></i> Guardando...';
+            lucide.createIcons({root: btn});
+            
+            fetch('/api/reorder_news', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ items: items })
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    showStatus("¡Cambios guardados en la web!", true);
+                    btn.style.display = 'none';
+                    btn.innerHTML = '<i data-lucide="save"></i> Guardar Cambios';
+                    lucide.createIcons({root: btn});
+                } else {
+                    showStatus("Error al guardar", false);
+                    btn.innerHTML = '<i data-lucide="save"></i> Guardar Cambios';
+                    lucide.createIcons({root: btn});
+                    loadAndRenderLists(); // Revert
+                }
+            })
+            .catch(err => {
+                showStatus("Error de conexión", false);
+                btn.innerHTML = '<i data-lucide="save"></i> Guardar Cambios';
+                lucide.createIcons({root: btn});
+                loadAndRenderLists(); // Revert
+            });
+        }
+
+        function toggleNewsVisibilityLocal(btn, id) {
+            const row = btn.closest('.item-row');
+            let isHidden = row.getAttribute('data-hidden') === 'true';
+            
+            // Toggle
+            isHidden = !isHidden;
+            row.setAttribute('data-hidden', isHidden);
+            
+            // Update UI
+            const mainText = row.querySelector('.item-main-text');
+            
+            if (isHidden) {
+                btn.innerHTML = '<i data-lucide="eye-off"></i>';
+                btn.style.color = 'var(--text-secondary)';
+                btn.style.borderColor = 'transparent';
+                btn.style.background = 'transparent';
+                mainText.style.textDecoration = 'line-through';
+                mainText.style.opacity = '0.6';
+                btn.title = 'Noticia oculta en la web (Click para mostrar)';
+            } else {
+                btn.innerHTML = '<i data-lucide="eye"></i>';
+                btn.style.color = '#10b981';
+                btn.style.borderColor = '#10b98130';
+                btn.style.background = '#10b98110';
+                mainText.style.textDecoration = 'none';
+                mainText.style.opacity = '1';
+                btn.title = 'Noticia visible en la web (Click para ocultar)';
+            }
+            lucide.createIcons({root: btn});
+            
+            // Show save button
+            const saveBtn = document.getElementById('saveNewsOrderBtn');
+            if(saveBtn) {
+                saveBtn.style.display = 'inline-flex';
+                saveBtn.innerHTML = '<i data-lucide="save"></i> Guardar Cambios';
+                lucide.createIcons({root: saveBtn});
+            }
+        }
+
+        function renderDocs(docs) {
+            const listDocs = document.getElementById('listDocs');
+            listDocs.innerHTML = '';
+            if (docs.length === 0) {
+                listDocs.innerHTML = '<div style="padding: 12px; color: var(--text-secondary); text-align: center; font-size: 14px;">No hay documentos registrados.</div>';
+                return;
+            }
+            docs.forEach(item => {
+                const title = item.title_es || item.title_eu || "Documento sin título";
+                const isDrive = item.fileUrl.startsWith('http') || item.fileUrl.startsWith('https');
+                
+                const row = document.createElement('div');
+                row.className = 'item-row';
+                row.innerHTML = `
+                    <div class="item-info">
+                        <span class="item-main-text">${title}</span>
+                        <span class="item-sub-text">${item.fileUrl} (${isDrive ? 'Enlace Drive/Web' : 'Archivo Local'})</span>
+                    </div>
+                    <button class="btn-delete" onclick="deleteDocumentItem('${item.fileUrl}', '${title.replace(/'/g, "\\'")}')" title="Eliminar Documento">
+                        <i data-lucide="trash-2"></i>
+                    </button>
+                `;
+                listDocs.appendChild(row);
+            });
+        }
+
+        function renderMenus(menus) {
+            const listMenus = document.getElementById('listMenus');
+            listMenus.innerHTML = '';
+            if (menus.length === 0) {
+                listMenus.innerHTML = '<div style="padding: 12px; color: var(--text-secondary); text-align: center; font-size: 14px;">No hay menús registrados.</div>';
+                return;
+            }
+            menus.forEach(item => {
+                const name = item.name_es || item.name_eu || "Menú sin nombre";
+                const isDrive = item.fileUrl.startsWith('http') || item.fileUrl.startsWith('https');
+                
+                const row = document.createElement('div');
+                row.className = 'item-row';
+                row.innerHTML = `
+                    <div class="item-info">
+                        <span class="item-main-text">${name}</span>
+                        <span class="item-sub-text">${item.fileUrl} (${isDrive ? 'Enlace Drive/Web' : 'Archivo PDF - ' + item.size})</span>
+                    </div>
+                    <button class="btn-delete" onclick="deleteMenuItem('${item.fileUrl}', '${name.replace(/'/g, "\\'")}')" title="Eliminar Menú">
+                        <i data-lucide="trash-2"></i>
+                    </button>
+                `;
+                listMenus.appendChild(row);
+            });
+        }
+
+        function deleteNewsItem(id, title) {
+            if (confirm(`¿Estás seguro de que deseas eliminar la noticia "${title}"?`)) {
+                sendDeleteRequest('/api/delete_news', { id: id });
+            }
+        }
+
+        function deleteDocumentItem(fileUrl, title) {
+            if (confirm(`¿Estás seguro de que deseas eliminar el documento "${title}"?`)) {
+                sendDeleteRequest('/api/delete_document', { fileUrl: fileUrl });
+            }
+        }
+
+        function deleteMenuItem(fileUrl, title) {
+            if (confirm(`¿Estás seguro de que deseas eliminar el menú "${title}"?`)) {
+                sendDeleteRequest('/api/delete_menu', { fileUrl: fileUrl });
+            }
+        }
+
+        function sendDeleteRequest(url, payload) {
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(payload)
+            })
+            .then(res => res.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    showStatus(data.message, true);
+                    loadAndRenderLists();
+                } else {
+                    showStatus('Error: ' + data.message, false);
+                }
+            })
+            .catch(err => {
+                showStatus('Error de conexión con el servidor local al eliminar.', false);
+            });
+        }
+
+        // Initial load
+        loadAndRenderLists();
+    </script>
+    <script>
+        // Initial load
+        loadAndRenderLists();
+    </script>
+</body>
+</html>

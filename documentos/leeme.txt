@@ -1,0 +1,2 @@
+Esta carpeta albergará los documentos PDF públicos del comedor (menús, fichas de inscripción, etc.).
+Cuando agregues documentos a través del panel de administración, el sistema los guardará aquí automáticamente.
