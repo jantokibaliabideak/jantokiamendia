@@ -3,12 +3,40 @@
 
 document.addEventListener('DOMContentLoaded', () => {
     
-    // Initialize Lucide Icons
-    lucide.createIcons();
+    // Safe helpers for localStorage (avoids SecurityError in incognito modes or disabled cookies)
+    function safeGetItem(key, fallback) {
+        try {
+            return localStorage.getItem(key) || fallback;
+        } catch (e) {
+            return fallback;
+        }
+    }
+
+    function safeSetItem(key, value) {
+        try {
+            localStorage.setItem(key, value);
+        } catch (e) {
+            // Silence
+        }
+    }
+
+    // Safe helper for Lucide Icons (avoids crashes if Lucide CDN is blocked or unavailable)
+    function safeCreateIcons() {
+        if (typeof lucide !== 'undefined' && lucide.createIcons) {
+            try {
+                lucide.createIcons();
+            } catch (e) {
+                console.error('Error creating Lucide icons:', e);
+            }
+        }
+    }
+
+    // Initialize Lucide Icons safely
+    safeCreateIcons();
 
     // 1. LANGUAGE SWITCHER LOGIC
     const langToggle = document.getElementById('langToggle');
-    const currentLang = localStorage.getItem('lang') || 'eu';
+    const currentLang = safeGetItem('lang', 'eu');
     document.body.className = document.body.className.replace(/lang-\w+/, '') + ` lang-${currentLang}`;
     updateLangBtnText(currentLang);
 
@@ -18,7 +46,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         document.body.classList.remove(`lang-${activeLang}`);
         document.body.classList.add(`lang-${newLang}`);
-        localStorage.setItem('lang', newLang);
+        safeSetItem('lang', newLang);
         updateLangBtnText(newLang);
     });
 
@@ -28,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 2. THEME SWITCHER LOGIC (Dark/Light Mode)
     const themeToggle = document.getElementById('themeToggle');
-    const savedTheme = localStorage.getItem('theme') || 'light';
+    const savedTheme = safeGetItem('theme', 'light');
     
     if (savedTheme === 'dark') {
         document.body.classList.add('dark-mode');
@@ -37,7 +65,7 @@ document.addEventListener('DOMContentLoaded', () => {
     themeToggle.addEventListener('click', () => {
         document.body.classList.toggle('dark-mode');
         const theme = document.body.classList.contains('dark-mode') ? 'dark' : 'light';
-        localStorage.setItem('theme', theme);
+        safeSetItem('theme', theme);
     });
 
     // 3. MOBILE MENU LOGIC
@@ -52,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             icon.setAttribute('data-lucide', 'menu');
         }
-        lucide.createIcons();
+        safeCreateIcons();
     });
 
     // Close mobile menu when clicking a link
@@ -60,7 +88,7 @@ document.addEventListener('DOMContentLoaded', () => {
         link.addEventListener('click', () => {
             navLinks.classList.remove('mobile-active');
             mobileMenuBtn.querySelector('i').setAttribute('data-lucide', 'menu');
-            lucide.createIcons();
+            safeCreateIcons();
             
             // Set active class
             link.classList.add('active');
@@ -237,7 +265,7 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             menuListContainer.appendChild(a);
         });
-        lucide.createIcons();
+        safeCreateIcons();
     }
 
     function renderDynamicDocs(docsList) {
@@ -268,7 +296,7 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             docsGrid.appendChild(card);
         });
-        lucide.createIcons();
+        safeCreateIcons();
     }
 
     // 7. LIGHTBOX MODAL LOGIC FOR IMAGES (NEWS & GALLERY)
@@ -313,8 +341,10 @@ document.addEventListener('DOMContentLoaded', () => {
                     const domItems = Array.from(galleryGrid.querySelectorAll('.gallery-item'));
                     currentGalleryItems = domItems.map(el => {
                         const img = el.querySelector('img');
-                        const titleEu = el.getAttribute('data-title-eu') || el.querySelector('.overlay-title .eu')?.textContent || '';
-                        const titleEs = el.getAttribute('data-title-es') || el.querySelector('.overlay-title .es')?.textContent || '';
+                        const elEu = el.querySelector('.overlay-title .eu');
+                        const elEs = el.querySelector('.overlay-title .es');
+                        const titleEu = el.getAttribute('data-title-eu') || (elEu ? elEu.textContent : '');
+                        const titleEs = el.getAttribute('data-title-es') || (elEs ? elEs.textContent : '');
                         return {
                             src: img ? img.src : '',
                             title_eu: titleEu,
@@ -440,7 +470,7 @@ document.addEventListener('DOMContentLoaded', () => {
             div.appendChild(overlay);
             galleryGrid.appendChild(div);
         });
-        lucide.createIcons();
+        safeCreateIcons();
     }
 
     function renderDynamicConfig(config) {
