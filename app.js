@@ -68,27 +68,33 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Scroll Spy: Update active link on scroll
-    window.addEventListener('scroll', () => {
-        const sections = document.querySelectorAll('section:not(#2urte), header');
-        const navItems = document.querySelectorAll('.nav-item');
-        let currentSectionId = 'hasiera';
-        
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop - 100;
-            if (window.scrollY >= sectionTop) {
-                currentSectionId = section.getAttribute('id');
-            }
-        });
-        
-        navItems.forEach(item => {
-            item.classList.remove('active');
-            if (item.getAttribute('href') === `#${currentSectionId}`) {
-                item.classList.add('active');
-            }
-        });
+    // Scroll Spy using IntersectionObserver
+    const observerOptions = {
+        root: null,
+        rootMargin: '-40% 0px -60% 0px',
+        threshold: 0
+    };
 
-        // Add class to navbar on scroll
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const id = entry.target.getAttribute('id');
+                const navItems = document.querySelectorAll('.nav-item');
+                navItems.forEach(item => {
+                    item.classList.remove('active');
+                    if (item.getAttribute('href') === `#${id}`) {
+                        item.classList.add('active');
+                    }
+                });
+            }
+        });
+    }, observerOptions);
+
+    const sections = document.querySelectorAll('section:not(#2urte), header');
+    sections.forEach(section => observer.observe(section));
+
+    // Add class to navbar on scroll
+    window.addEventListener('scroll', () => {
         const navbar = document.querySelector('.navbar');
         if (window.scrollY > 50) {
             navbar.classList.add('scrolled');
