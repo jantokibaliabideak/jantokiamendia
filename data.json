@@ -131,27 +131,39 @@
     "gallery": [
         {
             "id": 1,
-            "imageUrl": "imagenes/comedor_1.jpg"
+            "imageUrl": "imagenes/comedor_1.jpg",
+            "title_eu": "Jantokiko instalazioak",
+            "title_es": "Instalaciones del comedor"
         },
         {
             "id": 2,
-            "imageUrl": "imagenes/comedor_2.jpg"
+            "imageUrl": "imagenes/comedor_2.jpg",
+            "title_eu": "Gure sukalde propioa",
+            "title_es": "Nuestra cocina del colegio"
         },
         {
             "id": 3,
-            "imageUrl": "imagenes/comedor_3.jpg"
+            "imageUrl": "imagenes/comedor_3.jpg",
+            "title_eu": "Elikagai osasuntsuak eta freskoak",
+            "title_es": "Alimentos saludables y frescos"
         },
         {
             "id": 4,
-            "imageUrl": "imagenes/comedor_4.jpg"
+            "imageUrl": "imagenes/comedor_4.jpg",
+            "title_eu": "Ikaskuntza eta elkarbizitza espazioa",
+            "title_es": "Espacio de aprendizaje y convivencia"
         },
         {
             "id": 5,
-            "imageUrl": "imagenes/comedor_5.jpg"
+            "imageUrl": "imagenes/comedor_5.jpg",
+            "title_eu": "Jangela hezitzaile eta atsegina",
+            "title_es": "Comedor educativo y agradable"
         },
         {
             "id": 6,
-            "imageUrl": "imagenes/comedor_6.jpg"
+            "imageUrl": "imagenes/comedor_6.jpg",
+            "title_eu": "Autonomia eta ohitura osasungarriak",
+            "title_es": "Fomento de autonomía y buenos hábitos"
         }
     ]
 }

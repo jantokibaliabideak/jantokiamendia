@@ -615,40 +615,77 @@
 
             <div class="gallery-grid" id="galleryGrid">
                 <div class="gallery-item">
-                    <img src="imagenes/comedor_1.jpg" alt="Comedor Escolar Mendia 1" loading="lazy">
+                    <img src="imagenes/comedor_1.jpg" alt="Jantokiko instalazioak / Instalaciones del comedor" loading="lazy">
                     <div class="gallery-overlay">
-                        <i data-lucide="zoom-in"></i>
+                        <div class="overlay-info">
+                            <i data-lucide="zoom-in"></i>
+                            <p class="overlay-title">
+                                <span class="eu">Jantokiko instalazioak</span>
+                                <span class="es">Instalaciones del comedor</span>
+                            </p>
+                        </div>
                     </div>
                 </div>
                 <div class="gallery-item">
-                    <img src="imagenes/comedor_2.jpg" alt="Comedor Escolar Mendia 2" loading="lazy">
+                    <img src="imagenes/comedor_2.jpg" alt="Gure sukalde propioa / Nuestra cocina del colegio" loading="lazy">
                     <div class="gallery-overlay">
-                        <i data-lucide="zoom-in"></i>
+                        <div class="overlay-info">
+                            <i data-lucide="zoom-in"></i>
+                            <p class="overlay-title">
+                                <span class="eu">Gure sukalde propioa</span>
+                                <span class="es">Nuestra cocina del colegio</span>
+                            </p>
+                        </div>
                     </div>
                 </div>
                 <div class="gallery-item">
-                    <img src="imagenes/comedor_3.jpg" alt="Comedor Escolar Mendia 3" loading="lazy">
+                    <img src="imagenes/comedor_3.jpg" alt="Elikagai osasuntsuak eta freskoak / Alimentos saludables y frescos" loading="lazy">
                     <div class="gallery-overlay">
-                        <i data-lucide="zoom-in"></i>
+                        <div class="overlay-info">
+                            <i data-lucide="zoom-in"></i>
+                            <p class="overlay-title">
+                                <span class="eu">Elikagai osasuntsuak eta freskoak</span>
+                                <span class="es">Alimentos saludables y frescos</span>
+                            </p>
+                        </div>
                     </div>
                 </div>
                 <div class="gallery-item">
-                    <img src="imagenes/comedor_4.jpg" alt="Comedor Escolar Mendia 4" loading="lazy">
+                    <img src="imagenes/comedor_4.jpg" alt="Ikaskuntza eta elkarbizitza espazioa / Espacio de aprendizaje y convivencia" loading="lazy">
                     <div class="gallery-overlay">
-                        <i data-lucide="zoom-in"></i>
+                        <div class="overlay-info">
+                            <i data-lucide="zoom-in"></i>
+                            <p class="overlay-title">
+                                <span class="eu">Ikaskuntza eta elkarbizitza espazioa</span>
+                                <span class="es">Espacio de aprendizaje y convivencia</span>
+                            </p>
+                        </div>
                     </div>
                 </div>
                 <div class="gallery-item">
-                    <img src="imagenes/comedor_5.jpg" alt="Comedor Escolar Mendia 5" loading="lazy">
+                    <img src="imagenes/comedor_5.jpg" alt="Jangela hezitzaile eta atsegina / Comedor educativo y agradable" loading="lazy">
                     <div class="gallery-overlay">
-                        <i data-lucide="zoom-in"></i>
+                        <div class="overlay-info">
+                            <i data-lucide="zoom-in"></i>
+                            <p class="overlay-title">
+                                <span class="eu">Jangela hezitzaile eta atsegina</span>
+                                <span class="es">Comedor educativo y agradable</span>
+                            </p>
+                        </div>
                     </div>
                 </div>
                 <div class="gallery-item">
-                    <img src="imagenes/comedor_6.jpg" alt="Comedor Escolar Mendia 6" loading="lazy">
+                    <img src="imagenes/comedor_6.jpg" alt="Autonomia eta ohitura osasungarriak / Fomento de autonomía y buenos hábitos" loading="lazy">
                     <div class="gallery-overlay">
-                        <i data-lucide="zoom-in"></i>
+                        <div class="overlay-info">
+                            <i data-lucide="zoom-in"></i>
+                            <p class="overlay-title">
+                                <span class="eu">Autonomia eta ohitura osasungarriak</span>
+                                <span class="es">Fomento de autonomía y buenos hábitos</span>
+                            </p>
+                        </div>
                     </div>
+                </div>
             </div>
         </div>
     </section>
@@ -708,10 +745,15 @@
         </div>
     </footer>
 
-    <!-- Lightbox Modal for News Images -->
+    <!-- Lightbox Modal for News & Gallery Images -->
     <div id="imageModal" class="modal">
         <span class="modal-close"><i data-lucide="x"></i></span>
-        <img class="modal-content" id="modalImage" alt="Zoomed News Image">
+        <button class="modal-prev" id="modalPrev" aria-label="Anterior"><i data-lucide="chevron-left"></i></button>
+        <div class="modal-wrapper">
+            <img class="modal-content" id="modalImage" alt="Zoomed Image">
+            <div class="modal-caption" id="modalCaption"></div>
+        </div>
+        <button class="modal-next" id="modalNext" aria-label="Siguiente"><i data-lucide="chevron-right"></i></button>
     </div>
 
     <!-- Firebase / Local Database Script connection -->

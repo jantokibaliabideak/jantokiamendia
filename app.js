@@ -275,6 +275,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const imageModal = document.getElementById('imageModal');
     const modalImage = document.getElementById('modalImage');
     const modalClose = document.querySelector('.modal-close');
+    const modalCaption = document.getElementById('modalCaption');
+    const modalPrev = document.getElementById('modalPrev');
+    const modalNext = document.getElementById('modalNext');
+
+    let currentGalleryItems = [];
+    let currentItemIndex = -1;
+    let isGalleryActive = false;
 
     if (imageModal && modalImage) {
         const newsGrid = document.getElementById('newsGrid');
@@ -284,6 +291,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (imgBox) {
                     const img = imgBox.querySelector('.news-img');
                     if (img) {
+                        isGalleryActive = false;
+                        if (modalPrev) modalPrev.style.display = 'none';
+                        if (modalNext) modalNext.style.display = 'none';
+                        if (modalCaption) modalCaption.style.display = 'none';
+                        
                         modalImage.src = img.src;
                         imageModal.classList.add('active');
                         document.body.style.overflow = 'hidden'; // Disable page scrolling
@@ -297,13 +309,69 @@ document.addEventListener('DOMContentLoaded', () => {
             galleryGrid.addEventListener('click', (e) => {
                 const item = e.target.closest('.gallery-item');
                 if (item) {
-                    const img = item.querySelector('img');
-                    if (img) {
-                        modalImage.src = img.src;
-                        imageModal.classList.add('active');
-                        document.body.style.overflow = 'hidden'; // Disable page scrolling
-                    }
+                    // Recopilar elementos de la galería del DOM actual para la navegación
+                    const domItems = Array.from(galleryGrid.querySelectorAll('.gallery-item'));
+                    currentGalleryItems = domItems.map(el => {
+                        const img = el.querySelector('img');
+                        const titleEu = el.getAttribute('data-title-eu') || el.querySelector('.overlay-title .eu')?.textContent || '';
+                        const titleEs = el.getAttribute('data-title-es') || el.querySelector('.overlay-title .es')?.textContent || '';
+                        return {
+                            src: img ? img.src : '',
+                            title_eu: titleEu,
+                            title_es: titleEs
+                        };
+                    });
+                    
+                    currentItemIndex = domItems.indexOf(item);
+                    isGalleryActive = true;
+                    
+                    if (modalPrev) modalPrev.style.display = 'flex';
+                    if (modalNext) modalNext.style.display = 'flex';
+                    if (modalCaption) modalCaption.style.display = 'block';
+                    
+                    showGalleryItem(currentItemIndex);
+                    imageModal.classList.add('active');
+                    document.body.style.overflow = 'hidden'; // Disable page scrolling
                 }
+            });
+        }
+
+        function showGalleryItem(index) {
+            if (index < 0 || index >= currentGalleryItems.length) return;
+            currentItemIndex = index;
+            const item = currentGalleryItems[currentItemIndex];
+            modalImage.src = item.src;
+            
+            if (modalCaption) {
+                // Determinar idioma activo
+                const isEs = document.body.classList.contains('lang-es');
+                const title = isEs ? item.title_es : item.title_eu;
+                modalCaption.textContent = title || '';
+            }
+        }
+
+        function navigateGallery(direction) {
+            if (!isGalleryActive || currentGalleryItems.length === 0) return;
+            let newIndex = currentItemIndex + direction;
+            if (newIndex < 0) {
+                newIndex = currentGalleryItems.length - 1; // Bucle al final
+            } else if (newIndex >= currentGalleryItems.length) {
+                newIndex = 0; // Bucle al principio
+            }
+            showGalleryItem(newIndex);
+        }
+
+        if (modalPrev) {
+            modalPrev.addEventListener('click', (e) => {
+                e.stopPropagation();
+                navigateGallery(-1);
+            });
+        }
+
+        if (modalNext) {
+            modalNext.addEventListener('click', (e) => {
+                e.stopPropagation();
+                navigateGallery(1);
             });
         }
 
@@ -323,8 +391,14 @@ document.addEventListener('DOMContentLoaded', () => {
         });
 
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && imageModal.classList.contains('active')) {
-                closeModal();
+            if (imageModal.classList.contains('active')) {
+                if (e.key === 'Escape') {
+                    closeModal();
+                } else if (e.key === 'ArrowLeft') {
+                    navigateGallery(-1);
+                } else if (e.key === 'ArrowRight') {
+                    navigateGallery(1);
+                }
             }
         });
     }
@@ -339,6 +413,8 @@ document.addEventListener('DOMContentLoaded', () => {
         galleryList.forEach(item => {
             const div = document.createElement('div');
             div.className = 'gallery-item';
+            div.setAttribute('data-title-eu', item.title_eu || '');
+            div.setAttribute('data-title-es', item.title_es || '');
             
             const img = document.createElement('img');
             img.src = item.imageUrl;
@@ -347,8 +423,19 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const overlay = document.createElement('div');
             overlay.className = 'gallery-overlay';
-            overlay.innerHTML = '<i data-lucide="zoom-in"></i>';
             
+            const overlayInfo = document.createElement('div');
+            overlayInfo.className = 'overlay-info';
+            
+            overlayInfo.innerHTML = `
+                <i data-lucide="zoom-in"></i>
+                <p class="overlay-title">
+                    <span class="eu">${item.title_eu || ''}</span>
+                    <span class="es">${item.title_es || ''}</span>
+                </p>
+            `;
+            
+            overlay.appendChild(overlayInfo);
             div.appendChild(img);
             div.appendChild(overlay);
             galleryGrid.appendChild(div);
