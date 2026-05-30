@@ -337,18 +337,23 @@ document.addEventListener('DOMContentLoaded', () => {
         
         galleryGrid.innerHTML = '';
         galleryList.forEach(item => {
-            const a = document.createElement('a');
-            a.href = item.imageUrl;
-            a.setAttribute('data-lightbox', 'comedor');
+            const div = document.createElement('div');
+            div.className = 'gallery-item';
             
             const img = document.createElement('img');
             img.src = item.imageUrl;
-            img.className = 'gallery-img';
             img.alt = 'Comedor Mendia';
+            img.loading = 'lazy';
             
-            a.appendChild(img);
-            galleryGrid.appendChild(a);
+            const overlay = document.createElement('div');
+            overlay.className = 'gallery-overlay';
+            overlay.innerHTML = '<i data-lucide="zoom-in"></i>';
+            
+            div.appendChild(img);
+            div.appendChild(overlay);
+            galleryGrid.appendChild(div);
         });
+        lucide.createIcons();
     }
 
     function renderDynamicConfig(config) {
