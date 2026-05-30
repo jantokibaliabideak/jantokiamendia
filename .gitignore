@@ -1,0 +1,7 @@
+# Logs
+*.log
+sync_drive.log
+
+# Archivos de sistema y temporales
+.DS_Store
+Thumbs.db
