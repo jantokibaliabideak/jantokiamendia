@@ -77,7 +77,7 @@ document.addEventListener('DOMContentLoaded', () => {
         sections.forEach(section => {
             const rect = section.getBoundingClientRect();
             // If the top of the section is near or above the middle of the screen
-            if (rect.top <= window.innerHeight / 3) {
+            if (rect.top <= window.innerHeight / 2.5) {
                 currentId = section.getAttribute('id');
             }
         });
@@ -90,9 +90,10 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Update on scroll and on initial load
+    // Update continuously to avoid browser scroll event bugs
     window.addEventListener('scroll', updateActiveNav);
     window.addEventListener('resize', updateActiveNav);
+    setInterval(updateActiveNav, 200);
     updateActiveNav();
 
     // Add class to navbar on scroll
