@@ -63,9 +63,10 @@ document.addEventListener('DOMContentLoaded', () => {
             lucide.createIcons();
             
             // Set active class
-            document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
             link.classList.add('active');
         });
+    });
+
     // Scroll Spy: robust getBoundingClientRect method
     const sections = document.querySelectorAll('section:not(#2urte), header');
     const navItems = document.querySelectorAll('.nav-item');
