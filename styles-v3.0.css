@@ -1232,6 +1232,26 @@ body.dark-mode .theme-icon-dark { display: none; }
     backdrop-filter: blur(8px);
 }
 
+/* Chatbot Placeholder (To be replaced by real script) */
+.chatbot-placeholder {
+    display: inline-flex;
+    background: linear-gradient(135deg, var(--accent) 0%, var(--accent-warm) 100%);
+    color: var(--text-inverse);
+    padding: 10px 20px;
+    border-radius: var(--radius-full);
+    align-items: center;
+    gap: 8px;
+    box-shadow: var(--shadow-sm);
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: var(--transition);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    animation: pulseGlow 3s infinite alternate;
+    margin-bottom: 24px;
+    width: fit-content;
+}
+
 .modal-close {
     position: absolute;
     top: 24px;
