@@ -7,3 +7,6 @@ sync_drive.log
 Thumbs.db
 .vercel
 .env*
+
+# Local Netlify folder
+.netlify
