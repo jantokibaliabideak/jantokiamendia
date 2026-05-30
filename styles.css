@@ -1171,7 +1171,7 @@ body.dark-mode .theme-icon-dark { display: none; }
 
 /* Lightbox Modal Styles */
 .modal {
-    display: none;
+    display: flex;
     position: fixed;
     z-index: 2000;
     top: 0;
@@ -1184,12 +1184,13 @@ body.dark-mode .theme-icon-dark { display: none; }
     align-items: center;
     justify-content: center;
     opacity: 0;
-    transition: opacity 0.3s ease;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
 .modal.active {
-    display: flex;
     opacity: 1;
+    visibility: visible;
 }
 
 .modal-wrapper {
