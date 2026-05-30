@@ -161,7 +161,7 @@ h1, h2, h3, h4, .logo-text, .btn-primary, .btn-secondary {
 }
 
 .logo-img {
-    height: 40px;
+    height: 60px; /* Increased from 40px to fit the new wide logo */
     width: auto;
     object-fit: contain;
     transition: var(--transition);
