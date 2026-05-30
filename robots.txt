@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://mendiaeskola.vercel.app/sitemap.xml
+Sitemap: https://jantokia-mendiaeskola.vercel.app/sitemap.xml
