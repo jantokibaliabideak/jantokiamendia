@@ -5,3 +5,5 @@ sync_drive.log
 # Archivos de sistema y temporales
 .DS_Store
 Thumbs.db
+.vercel
+.env*
