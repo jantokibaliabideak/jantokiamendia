@@ -1403,6 +1403,15 @@ body.dark-mode .theme-icon-dark { display: none; }
     opacity: 1;
 }
 
+.gallery-item:hover .gallery-overlay .overlay-title {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.gallery-item:hover .gallery-overlay {
+    opacity: 1;
+}
+
 .gallery-item:hover .gallery-overlay svg {
     transform: translateY(0) scale(1);
 }

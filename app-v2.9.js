@@ -432,7 +432,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-});
+
 
     function renderDynamicGallery(galleryList) {
         if (!galleryList || galleryList.length === 0) return;
@@ -497,3 +497,4 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
+});
