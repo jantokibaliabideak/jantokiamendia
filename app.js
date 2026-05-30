@@ -66,32 +66,33 @@ document.addEventListener('DOMContentLoaded', () => {
             document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
             link.classList.add('active');
         });
-    });
+    // Scroll Spy: robust getBoundingClientRect method
+    const sections = document.querySelectorAll('section:not(#2urte), header');
+    const navItems = document.querySelectorAll('.nav-item');
 
-    // Scroll Spy using IntersectionObserver
-    const observerOptions = {
-        root: null,
-        rootMargin: '-40% 0px -60% 0px',
-        threshold: 0
-    };
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const id = entry.target.getAttribute('id');
-                const navItems = document.querySelectorAll('.nav-item');
-                navItems.forEach(item => {
-                    item.classList.remove('active');
-                    if (item.getAttribute('href') === `#${id}`) {
-                        item.classList.add('active');
-                    }
-                });
+    function updateActiveNav() {
+        let currentId = 'hasiera'; // Default fallback
+        
+        sections.forEach(section => {
+            const rect = section.getBoundingClientRect();
+            // If the top of the section is near or above the middle of the screen
+            if (rect.top <= window.innerHeight / 3) {
+                currentId = section.getAttribute('id');
             }
         });
-    }, observerOptions);
 
-    const sections = document.querySelectorAll('section:not(#2urte), header');
-    sections.forEach(section => observer.observe(section));
+        navItems.forEach(item => {
+            item.classList.remove('active');
+            if (item.getAttribute('href') === `#${currentId}`) {
+                item.classList.add('active');
+            }
+        });
+    }
+
+    // Update on scroll and on initial load
+    window.addEventListener('scroll', updateActiveNav);
+    window.addEventListener('resize', updateActiveNav);
+    updateActiveNav();
 
     // Add class to navbar on scroll
     window.addEventListener('scroll', () => {
