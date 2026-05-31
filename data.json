@@ -108,6 +108,11 @@
                     "label_eu": "2 urteko gela",
                     "label_es": "Aula 2 años",
                     "url": "https://docs.google.com/forms/d/e/1FAIpQLSeg2uXRMDijnsLVwkXotFCgDxx9zn9A0qcjQabIeCdY-w-xAw/viewform?usp=sharing&ouid=100635885258558271853"
+                },
+                {
+                    "label_eu": "Hirugarrenen Alta",
+                    "label_es": "Alta de Terceros (Banco)",
+                    "url": "https://drive.google.com/drive/u/0/my-drive"
                 }
             ],
             "icon": "external-link"
