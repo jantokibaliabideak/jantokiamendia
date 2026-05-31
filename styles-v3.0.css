@@ -1235,7 +1235,7 @@ body.dark-mode .theme-icon-dark { display: none; }
 /* Chatbot Placeholder (To be replaced by real script) */
 .chatbot-container-top {
     position: absolute;
-    top: 120px; /* Pushed down to avoid navbar */
+    top: 150px; /* Pushed further down */
     left: 0;
     width: 100%;
     display: flex;
@@ -1262,7 +1262,7 @@ body.dark-mode .theme-icon-dark { display: none; }
 
 @media (max-width: 768px) {
     .chatbot-container-top {
-        top: 90px;
+        top: 120px;
     }
 }
 
