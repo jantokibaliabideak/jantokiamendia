@@ -1088,6 +1088,7 @@ body.dark-mode .theme-icon-dark { display: none; }
     width: 16px;
     height: 16px;
     color: var(--accent);
+    flex-shrink: 0;
 }
 
 .footer-bottom {
