@@ -118,6 +118,14 @@
             "icon": "external-link"
         },
         {
+            "title_eu": "Egutegi Eskolarra",
+            "title_es": "Calendario Escolar",
+            "desc_eu": "Ikasturterako eskola-egutegi ofiziala, jaiegunak eta jantoki zerbitzuaren egun bereziak barne.",
+            "desc_es": "Calendario escolar oficial para el curso, incluyendo días festivos y días especiales del servicio de comedor.",
+            "fileUrl": "https://docs.google.com/document/d/1nmSpnyxx8JTElEeJueo0ey3ZFSANq8SaX7Qs897WEnY/edit?tab=t.0",
+            "icon": "calendar-days"
+        },
+        {
             "title_eu": "Funtzionamendu IUP",
             "title_es": "IUP Funcionamiento",
             "desc_eu": "Jantokiaren urteko funtzionamendu eta antolakuntza araudi ofiziala.",
