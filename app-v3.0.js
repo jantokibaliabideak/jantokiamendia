@@ -528,8 +528,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const map = {
             'heroTitle': {eu: config.hero_title_eu, es: config.hero_title_es},
             'heroDesc': {eu: config.hero_desc_eu, es: config.hero_desc_es},
-            'orgSchedule': {eu: config.org_schedule_eu, es: config.org_schedule_es},
-            'orgTeam': {eu: config.org_team_eu, es: config.org_team_es}
+            'orgSchedule': {eu: config.org_schedule_eu, es: config.org_schedule_es}
         };
 
         for (const [id, langs] of Object.entries(map)) {
