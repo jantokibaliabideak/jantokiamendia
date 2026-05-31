@@ -164,6 +164,7 @@ h1, h2, h3, h4, .logo-text, .btn-primary, .btn-secondary {
     height: 60px; /* Increased from 40px to fit the new wide logo */
     width: auto;
     object-fit: contain;
+    border-radius: var(--radius-md); /* Soften the edges of the white background */
     transition: var(--transition);
 }
 
