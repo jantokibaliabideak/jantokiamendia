@@ -332,39 +332,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         }
 
-        const galleryGrid = document.getElementById('galleryGrid');
-        if (galleryGrid) {
-            galleryGrid.addEventListener('click', (e) => {
-                const item = e.target.closest('.gallery-item');
-                if (item) {
-                    // Recopilar elementos de la galería del DOM actual para la navegación
-                    const domItems = Array.from(galleryGrid.querySelectorAll('.gallery-item'));
-                    currentGalleryItems = domItems.map(el => {
-                        const img = el.querySelector('img');
-                        const elEu = el.querySelector('.overlay-title .eu');
-                        const elEs = el.querySelector('.overlay-title .es');
-                        const titleEu = el.getAttribute('data-title-eu') || (elEu ? elEu.textContent : '');
-                        const titleEs = el.getAttribute('data-title-es') || (elEs ? elEs.textContent : '');
-                        return {
-                            src: img ? img.src : '',
-                            title_eu: titleEu,
-                            title_es: titleEs
-                        };
-                    });
-                    
-                    currentItemIndex = domItems.indexOf(item);
-                    isGalleryActive = true;
-                    
-                    if (modalPrev) modalPrev.style.display = 'flex';
-                    if (modalNext) modalNext.style.display = 'flex';
-                    if (modalCaption) modalCaption.style.display = 'block';
-                    
-                    showGalleryItem(currentItemIndex);
-                    imageModal.classList.add('active');
-                    document.body.style.overflow = 'hidden'; // Disable page scrolling
-                }
-            });
-        }
+        
 
         function showGalleryItem(index) {
             if (index < 0 || index >= currentGalleryItems.length) return;
@@ -451,23 +419,15 @@ document.addEventListener('DOMContentLoaded', () => {
             img.alt = 'Comedor Mendia';
             img.loading = 'lazy';
             
-            const overlay = document.createElement('div');
-            overlay.className = 'gallery-overlay';
-            
-            const overlayInfo = document.createElement('div');
-            overlayInfo.className = 'overlay-info';
-            
-            overlayInfo.innerHTML = `
-                <i data-lucide="zoom-in"></i>
-                <p class="overlay-title">
-                    <span class="eu">${item.title_eu || ''}</span>
-                    <span class="es">${item.title_es || ''}</span>
-                </p>
-            `;
-            
-            overlay.appendChild(overlayInfo);
             div.appendChild(img);
-            div.appendChild(overlay);
+            
+            const caption = document.createElement('div');
+            caption.className = 'gallery-caption';
+            caption.innerHTML = `
+                <span class="eu">${item.title_eu || ''}</span>
+                <span class="es">${item.title_es || ''}</span>
+            `;
+            div.appendChild(caption);
             galleryGrid.appendChild(div);
         });
         safeCreateIcons();
