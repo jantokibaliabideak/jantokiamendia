@@ -166,15 +166,15 @@ h1, h2, h3, h4, .logo-text, .btn-primary, .btn-secondary {
     object-fit: contain;
     border-radius: var(--radius-md); /* Soften the edges of the white background */
     transition: var(--transition);
-    animation: calmHeartbeat 1.5s ease-in-out 3;
+    animation: calmHeartbeat 2.5s ease-in-out 3;
     transform-origin: center;
 }
 
 @keyframes calmHeartbeat {
     0% { transform: scale(1); }
-    15% { transform: scale(1.05); }
+    15% { transform: scale(1.04); }
     30% { transform: scale(1); }
-    45% { transform: scale(1.05); }
+    45% { transform: scale(1.04); }
     60% { transform: scale(1); }
     100% { transform: scale(1); } /* Pause between beats */
 }
