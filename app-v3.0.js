@@ -80,7 +80,9 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             icon.setAttribute('data-lucide', 'menu');
         }
-        
+        safeCreateIcons();
+    });
+
     // --- Carousel Logic ---
     const carouselInner = document.getElementById('galleryGrid');
     const prevBtn = document.querySelector('.carousel-control.prev');
@@ -146,9 +148,6 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Initialize standard static gallery carousel
     initCarousel();
-
-    safeCreateIcons();
-    });
 
     // Close mobile menu when clicking a link
     document.querySelectorAll('.nav-item').forEach(link => {
