@@ -1,6 +1,15 @@
 {
     "news": [
         {
+            "id": 2,
+            "date": "2026/05/31",
+            "title_eu": "Jantoki zerbitzua bertan behera (Biharko)",
+            "title_es": "Suspensión del comedor (Mañana)",
+            "text_eu": "Famili agurgarriak: Bihar, ekainak 1, jantoki zerbitzua bertan behera geratuko da ezinbesteko arrazoiengatik. Barkatu eragozpenak.",
+            "text_es": "Estimadas familias: Mañana, 1 de junio, se suspende el servicio de comedor por causas de fuerza mayor. Disculpen las molestias.",
+            "imageUrl": ""
+        },
+        {
             "id": 1,
             "date": "2026/05/23",
             "title_eu": "Gurasoentzako bilera ekainaren 22an",
