@@ -96,8 +96,8 @@
         {
             "title_eu": "Alta eta Baja Orria",
             "title_es": "Ficha de Alta y Baja",
-            "desc_eu": "Jantoki zerbitzuan alta edo baja eskatzeko inprimaki ofiziala.",
-            "desc_es": "Formulario oficial para solicitar el alta o la baja en el servicio de comedor.",
+            "desc_eu": "Alta eta bajetarako inprimaki ofizialak. Garrantzitsua: Hirugarrenen Alta jankide berrientzat edo kontu aldaketentzat da; bete eta bankura eraman behar da zigilatzeko.",
+            "desc_es": "Formularios oficiales para altas y bajas. Importante: El documento de Alta de Terceros es para nuevos comensales o cambios de cuenta; debe rellenarse y llevarse al banco para que lo sellen.",
             "links": [
                 {
                     "label_eu": "Orokorra (3-12 urte)",
