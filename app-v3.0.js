@@ -340,10 +340,35 @@ document.addEventListener('DOMContentLoaded', () => {
         docsGrid.innerHTML = '';
         
         docsList.forEach(doc => {
-            const card = document.createElement('a');
-            card.href = doc.fileUrl;
+            const hasLinks = doc.links && doc.links.length > 0;
+            const card = document.createElement(hasLinks ? 'div' : 'a');
+            
+            if (!hasLinks) {
+                card.href = doc.fileUrl;
+                card.target = '_blank';
+            }
+            
             card.className = 'card doc-card';
-            card.target = '_blank';
+            
+            let linksHtml = '';
+            if (hasLinks) {
+                linksHtml = '<div class="doc-links-container" style="display: flex; flex-direction: column; gap: 8px; margin-top: auto; padding-top: 10px;">';
+                doc.links.forEach(link => {
+                    linksHtml += `
+                        <a href="${link.url}" target="_blank" class="doc-link" style="text-decoration: none; padding: 4px 0;">
+                            <span class="eu">${link.label_eu}</span><span class="es">${link.label_es}</span>
+                            <i data-lucide="arrow-right"></i>
+                        </a>
+                    `;
+                });
+                linksHtml += '</div>';
+            } else {
+                linksHtml = `
+                <span class="doc-link">
+                    <span class="eu">Deskargatu</span><span class="es">Descargar</span>
+                    <i data-lucide="arrow-right"></i>
+                </span>`;
+            }
             
             card.innerHTML = `
                 <div class="doc-card-icon"><i data-lucide="${doc.icon || 'file-down'}"></i></div>
@@ -355,10 +380,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <span class="eu">${doc.desc_eu}</span>
                     <span class="es">${doc.desc_es}</span>
                 </p>
-                <span class="doc-link">
-                    <span class="eu">Deskargatu</span><span class="es">Descargar</span>
-                    <i data-lucide="arrow-right"></i>
-                </span>
+                ${linksHtml}
             `;
             docsGrid.appendChild(card);
         });
