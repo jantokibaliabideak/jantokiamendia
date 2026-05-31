@@ -94,12 +94,12 @@
     ],
     "documents": [
         {
-            "title_eu": "Izen-emate Orria",
-            "title_es": "Ficha de Inscripción",
-            "desc_eu": "2026-2027 ikasturterako jantoki zerbitzuan alta emateko eskaera-orria.",
-            "desc_es": "Formulario oficial para solicitar el alta en el servicio de comedor para el próximo curso 2026-2027.",
-            "fileUrl": "documentos/Izen_Ematea_Inscripcion.pdf",
-            "icon": "file-down"
+            "title_eu": "Alta eta Baja Orria",
+            "title_es": "Ficha de Alta y Baja",
+            "desc_eu": "Jantoki zerbitzuan alta edo baja eskatzeko inprimaki ofiziala.",
+            "desc_es": "Formulario oficial para solicitar el alta o la baja en el servicio de comedor.",
+            "fileUrl": "https://15b36e9b.streak-link.com/C5bKiE4W1l0S6GffbQvqq3h8/https%3A%2F%2Fdocs.google.com%2Fforms%2Fd%2Fe%2F1FAIpQLSe4cSaSThYbdg4OdX4WFZ2COhPlzL7dFU1kl_Gl6RjVnfWU8g%2Fviewform",
+            "icon": "external-link"
         },
         {
             "title_eu": "Funtzionamendu IUP",
