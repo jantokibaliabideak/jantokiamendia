@@ -1574,4 +1574,9 @@ body.dark-mode .theme-icon-dark { display: none; }
     transform: scale(1.1);
 }
 
+/* Make all content images clickable */
+img:not(.logo-img):not(.modal-content):not([src*="logo"]):not([src*="ilustracion"]):not(.chatbot-placeholder img) {
+    cursor: zoom-in;
+}
+
 

@@ -312,6 +312,31 @@ document.addEventListener('DOMContentLoaded', () => {
     let isGalleryActive = false;
 
     if (imageModal && modalImage) {
+        // Global listener for ANY image on the page (excluding logos/modals/etc)
+        document.body.addEventListener('click', (e) => {
+            if (e.target.tagName === 'IMG') {
+                // If it's a gallery or news image, let their specific handlers manage it
+                if (e.target.closest('.gallery-item') || e.target.closest('.news-img-box')) return;
+                // Ignore UI images like logos or the modal image itself
+                if (e.target.closest('a') || e.target.classList.contains('logo-img') || e.target.closest('.modal')) return;
+                // Ignore specific footer illustrations if needed (checking src)
+                if (e.target.src.includes('ilustracion') || e.target.src.includes('logo')) return;
+                
+                // Allow expanding this isolated image
+                isGalleryActive = false;
+                if (modalPrev) modalPrev.style.display = 'none';
+                if (modalNext) modalNext.style.display = 'none';
+                if (modalCaption) {
+                    modalCaption.style.display = 'block';
+                    modalCaption.textContent = e.target.alt || '';
+                }
+
+                modalImage.src = e.target.src;
+                imageModal.classList.add('active');
+                document.body.style.overflow = 'hidden'; // Disable page scrolling
+            }
+        });
+
         const newsGrid = document.getElementById('newsGrid');
         if (newsGrid) {
             newsGrid.addEventListener('click', (e) => {
