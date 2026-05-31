@@ -1354,39 +1354,119 @@ body.dark-mode .theme-icon-dark { display: none; }
     cursor: zoom-in;
 }
 
-/* Gallery Section (Vertical Stack) */
-.gallery-grid {
+/* Gallery Section (Image Carousel) */
+.carousel-container {
+    position: relative;
+    width: 100%;
+    max-width: 900px;
+    margin: 40px auto;
+    overflow: hidden;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+}
+
+.carousel-inner {
     display: flex;
-    flex-direction: column;
-    gap: 40px;
-    margin-top: 40px;
+    transition: transform 0.5s ease-in-out;
+    width: 100%;
 }
 
 .gallery-item {
+    flex: 0 0 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
-    border-radius: var(--radius-lg);
-    overflow: hidden;
-    background: var(--surface-color);
-    border: 1px solid var(--border-color);
-    box-shadow: var(--shadow-sm);
 }
 
 .gallery-item img {
     width: 100%;
     height: auto;
-    object-fit: contain;
+    max-height: 500px;
+    object-fit: cover;
     display: block;
 }
 
 .gallery-caption {
-    padding: 20px;
+    padding: 16px 20px;
     text-align: center;
     font-weight: 600;
     font-size: 1.1rem;
     color: var(--text-color);
     background-color: var(--surface-color);
     border-top: 1px solid var(--border-color);
+}
+
+/* Carousel Controls */
+.carousel-control {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(255, 255, 255, 0.8);
+    color: var(--text-color);
+    border: none;
+    border-radius: 50%;
+    width: 48px;
+    height: 48px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+body.dark-mode .carousel-control {
+    background: rgba(30, 41, 59, 0.8);
+    color: white;
+}
+
+.carousel-control:hover {
+    background: var(--accent);
+    color: white;
+    transform: translateY(-50%) scale(1.1);
+}
+
+.carousel-control.prev {
+    left: 16px;
+}
+
+.carousel-control.next {
+    right: 16px;
+}
+
+.carousel-control svg {
+    width: 24px;
+    height: 24px;
+}
+
+/* Indicators */
+.carousel-indicators {
+    position: absolute;
+    bottom: 60px; /* Above the caption */
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 8px;
+    z-index: 10;
+}
+
+.indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.indicator.active {
+    background: white;
+    transform: scale(1.2);
+    box-shadow: 0 0 4px rgba(0,0,0,0.3);
 }
 
 /* Footer Contact Improvements */

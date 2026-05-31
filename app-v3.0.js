@@ -80,7 +80,74 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             icon.setAttribute('data-lucide', 'menu');
         }
-        safeCreateIcons();
+        
+    // --- Carousel Logic ---
+    const carouselInner = document.getElementById('galleryGrid');
+    const prevBtn = document.querySelector('.carousel-control.prev');
+    const nextBtn = document.querySelector('.carousel-control.next');
+    const indicatorsContainer = document.getElementById('galleryIndicators');
+    
+    let currentSlide = 0;
+    
+    function initCarousel() {
+        if (!carouselInner) return;
+        const slides = carouselInner.querySelectorAll('.gallery-item');
+        if (slides.length === 0) return;
+        
+        // Generate indicators
+        if (indicatorsContainer) {
+            indicatorsContainer.innerHTML = '';
+            slides.forEach((_, index) => {
+                const dot = document.createElement('div');
+                dot.className = 'indicator' + (index === 0 ? ' active' : '');
+                dot.addEventListener('click', () => goToSlide(index));
+                indicatorsContainer.appendChild(dot);
+            });
+        }
+        
+        updateCarousel();
+    }
+    
+    function updateCarousel() {
+        if (!carouselInner) return;
+        const slides = carouselInner.querySelectorAll('.gallery-item');
+        if (slides.length === 0) return;
+        
+        // Update transform
+        carouselInner.style.transform = `translateX(-${currentSlide * 100}%)`;
+        
+        // Update indicators
+        if (indicatorsContainer) {
+            const dots = indicatorsContainer.querySelectorAll('.indicator');
+            dots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentSlide);
+            });
+        }
+    }
+    
+    function goToSlide(index) {
+        currentSlide = index;
+        updateCarousel();
+    }
+    
+    if (prevBtn && nextBtn && carouselInner) {
+        prevBtn.addEventListener('click', () => {
+            const slides = carouselInner.querySelectorAll('.gallery-item');
+            currentSlide = (currentSlide - 1 + slides.length) % slides.length;
+            updateCarousel();
+        });
+        
+        nextBtn.addEventListener('click', () => {
+            const slides = carouselInner.querySelectorAll('.gallery-item');
+            currentSlide = (currentSlide + 1) % slides.length;
+            updateCarousel();
+        });
+    }
+    
+    // Initialize standard static gallery carousel
+    initCarousel();
+
+    safeCreateIcons();
     });
 
     // Close mobile menu when clicking a link
@@ -406,19 +473,16 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!galleryList || galleryList.length === 0) return;
         const galleryGrid = document.getElementById('galleryGrid');
         if (!galleryGrid) return;
-        
         galleryGrid.innerHTML = '';
         galleryList.forEach(item => {
             const div = document.createElement('div');
             div.className = 'gallery-item';
-            div.setAttribute('data-title-eu', item.title_eu || '');
-            div.setAttribute('data-title-es', item.title_es || '');
-            
+
             const img = document.createElement('img');
             img.src = item.imageUrl;
             img.alt = 'Comedor Mendia';
             img.loading = 'lazy';
-            
+
             div.appendChild(img);
             
             const caption = document.createElement('div');
@@ -430,6 +494,10 @@ document.addEventListener('DOMContentLoaded', () => {
             div.appendChild(caption);
             galleryGrid.appendChild(div);
         });
+        
+        // Re-initialize carousel after dynamic data is loaded
+        currentSlide = 0;
+        initCarousel();
         safeCreateIcons();
     }
 

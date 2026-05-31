@@ -626,7 +626,10 @@
                 </p>
             </div>
 
-            <div class="gallery-grid" id="galleryGrid">
+            
+            <div class="carousel-container" id="galleryCarousel">
+                <div class="carousel-inner" id="galleryGrid">
+
                 <div class="gallery-item">
                     <img src="imagenes/comedor_1.jpg" alt="Jantokiko instalazioak / Instalaciones del comedor" loading="lazy">
                     <div class="gallery-caption"><span class="eu">Jantokiko instalazioak</span><span class="es">Instalaciones del comedor</span></div>
@@ -651,9 +654,22 @@
                     <img src="imagenes/comedor_6.jpg" alt="Autonomia eta ohitura osasungarriak / Fomento de autonomía y buenos hábitos" loading="lazy">
                     <div class="gallery-caption"><span class="eu">Autonomia eta ohitura osasungarriak</span><span class="es">Fomento de autonomía y buenos hábitos</span></div>
                 </div>
+                            </div>
+                
+                <button class="carousel-control prev" aria-label="Anterior">
+                    <i data-lucide="chevron-left"></i>
+                </button>
+                <button class="carousel-control next" aria-label="Siguiente">
+                    <i data-lucide="chevron-right"></i>
+                </button>
+                
+                <div class="carousel-indicators" id="galleryIndicators">
+                    <!-- Dynamic indicators will go here -->
+                </div>
             </div>
         </div>
     </section>
+
 
 
 
